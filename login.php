@@ -15,19 +15,16 @@
 <!-- Login Form -->
 <div class="login-form">
     <h2>Login</h2>
-    <form>
+    <form action="dashboard.php" method="get">
         <label for="username">Username or Email:</label>
         <input type="text" id="username" name="username" required>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
 
-        
         <a href="password-reset.php" class="forgot-password">Forgot Password?</a>
 
-        <form action="dashboard.php" method="get">
-    <button type="submit">Login</button>
-</form>
+        <button type="submit">Login</button>
     </form>
 </div>
 
