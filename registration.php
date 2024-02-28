@@ -9,7 +9,7 @@
 <div class="header"></div>
 <div class="user-info"></div>
 <span class="app-title">
-    <a href="index.html" class="home-link">Finanss</a>
+    <a href="index.php" class="home-link">Finanss</a>
   </span>
 
 <!-- Registration Form -->
