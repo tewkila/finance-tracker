@@ -9,7 +9,7 @@
 <div class="header"></div>
 <div class="user-info"></div>
 <span class="app-title">
-    <a href="index.html" class="home-link">Finanss</a>
+    <a href="index.php" class="home-link">Finanss</a>
   </span>
 
 <!-- Login Form -->
@@ -25,7 +25,9 @@
         
         <a href="password-reset.php" class="forgot-password">Forgot Password?</a>
 
-        <button type="submit">Login</button>
+        <form action="dashboard.php" method="get">
+    <button type="submit">Login</button>
+</form>
     </form>
 </div>
 
