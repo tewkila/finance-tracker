@@ -1,1 +1,118 @@
+/* Set the entire page background color */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5; /* Light gray background */
+}
 
+/* Header section */
+.header {
+    padding: 20px 0;
+}
+
+/* App title */
+.app-title {
+    font-size: 24px;
+    color: #3F748F;
+    font-weight: bold;
+    margin-left: 20px; /* Add margin to the left */
+    text-decoration: none;
+}
+
+/* User info (top right corner) */
+.user-info {
+    font-size: 18px;
+    color: #424545;
+    margin-right: 20px; /* Add margin to the right */
+}
+
+/* Menu navigation */
+.menu {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-item {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+/* Income Page */
+.income-page {
+    padding: 20px;
+    max-width: 800px; /* Limit width for better readability */
+    margin: 0 auto; /* Center the page */
+}
+
+/* Income Page Title */
+.income-page h2 {
+    color: #3F748F; /* Dark blue text color */
+    margin-bottom: 20px; /* Add some space below the title */
+}
+
+/* Form to add income details */
+form {
+    margin-bottom: 20px; /* Add some space below the form */
+}
+
+label {
+    display: block; /* Display labels in block style */
+    margin-bottom: 5px; /* Add some space below each label */
+    color: #424545; /* Dark gray text color */
+}
+
+input[type="number"],
+input[type="text"],
+input[type="date"] {
+    width: 100%; /* Make input fields full-width */
+    padding: 10px; /* Add some padding for better appearance */
+    border-radius: 5px; /* Add rounded corners */
+    border: 1px solid #ccc; /* Add a light gray border */
+    margin-bottom: 10px; /* Add some space below each input */
+}
+
+button[type="submit"] {
+    background-color: #3F748F; /* Dark blue background */
+    color: #EBEBEB; /* Light gray text color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+button[type="submit"]:hover {
+    background-color: #2E596F; /* Darker blue on hover */
+}
+
+/* Table to display existing income entries */
+table {
+    width: 100%; /* Make the table full-width */
+    border-collapse: collapse; /* Collapse borders */
+}
+
+table th,
+table td {
+    border: 1px solid #ccc; /* Add a light gray border to cells */
+    padding: 10px; /* Add padding */
+    text-align: left; /* Align text to the left */
+}
+
+table th {
+    background-color: #55636b; /* Dark blue background for table header */
+    color: #EBEBEB; /* Light gray text color */
+}
+
+table td button {
+    background-color: transparent; /* Transparent background for buttons */
+    color: #3F748F; /* Dark blue text color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Change cursor on hover */
+    margin-right: 5px; /* Add some space between buttons */
+}
+
+table td button:hover {
+    text-decoration: underline; /* Underline text on hover */
+}
