@@ -10,13 +10,6 @@ body {
     color: #424545; /* General text color for additional divs and others */
 }
 
-/* Header Styling */
-.header {
-    background-color: #3F748F; /* Logo area background color */
-    padding: 20px;
-    text-align: center;
-}
-
 /* App Title Styling */
 .app-title {
     display: block;
@@ -24,7 +17,7 @@ body {
     margin: 20px 0;
     color: #3F748F; /* Logo color */
     font-size: 24px;
-    text-decoration: none; 
+    text-decoration: none;
 }
 
 .app-title a {
@@ -53,16 +46,15 @@ body {
 }
 
 .login-form form {
-    /* Changed from flex to block to better control the layout */
     display: block;
     width: 100%;
 }
 
 .login-form label {
-    /* Changed from inline-block to block for labels */
-    display: block;
+    display: block; /* Display labels in block style */
     margin-top: 10px;
     text-align: left; /* Align labels to the left */
+    color: #EBEBEB; /* Label text color */
 }
 
 .login-form input[type="text"],
@@ -72,11 +64,10 @@ body {
     border: none;
     border-radius: 5px;
     width: calc(100% - 20px); /* Make input fields full-width with 20px padding */
-    margin-right: 20px; /* Add space on the right side */
 }
 
 .login-form .forgot-password {
-    color: #EBEBEE;
+    color: #EBEBEB;
     text-decoration: none;
     font-size: 14px;
     display: block; /* Display the link as block to move it below */
@@ -93,4 +84,8 @@ body {
     border: none;
     border-radius: 5px;
     width: 100%;
+}
+
+.login-form button:hover {
+    background-color: #3F748F; /* Dark blue on hover */
 }
