@@ -8,7 +8,6 @@
 <body>
 <div class="header">
     <a href="index.php" class="app-title">Finanss</a>
-    <div class="user-info">user</div>
 </div>
 <div class="menu">
     <a href="dashboard.php" class="menu-item">Dashboard</a>
