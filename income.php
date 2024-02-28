@@ -3,18 +3,17 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
     <link href="./css/income-style.css" rel="stylesheet" />
-    <title>Finance Dashboard</title>
+    <title>Income</title>
 </head>
 <body>
-<div class="finance-dashboard">
     <div class="header"></div>
     <div class="user-info"></div>
-    <span class="app-title">Finance</span>
+    <span class="app-title">Finanss</span>
     <div class="menu">
-        <span class="menu-item">Dashboard</span>
-        <span class="menu-item">Income</span>
-        <span class="menu-item">Expense</span>
-        <span class="menu-item">Budget</span>
+        <a href="dashboard.php" class="menu-item">Dashboard</a>
+        <a href="income.php" class="menu-item">Income</a>
+        <a href="expense.php" class="menu-item">Expense</a>
+        <a href="budget.php" class="menu-item">Budget</a>
     </div>
 
     <!-- Income Page -->
@@ -59,6 +58,5 @@
             </tbody>
         </table>
     </div>
-</div>
 </body>
 </html>
