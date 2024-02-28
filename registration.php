@@ -8,7 +8,9 @@
 <body>
 <div class="header"></div>
 <div class="user-info"></div>
-<span class="app-title">Finanss</span>
+<span class="app-title">
+    <a href="index.html" class="home-link">Finanss</a>
+  </span>
 
 <!-- Registration Form -->
 <div class="registration-form">
