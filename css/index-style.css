@@ -1,4 +1,3 @@
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,85 +5,90 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body {
-    font-size: 14px;
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
 .container {
     width: 100%;
-    height: 1080px;
-    background: url("../img/building-background.png") center center/cover no-repeat;
-    opacity: 1;
+    height: 100vh; /* Use viewport height for full height */
+    background: url("../img/building-background.jpeg") center center/cover no-repeat;
     position: relative;
-    overflow: hidden;
 }
 
 .header {
     width: 100%;
-    height: 100%;
-    opacity: 1;
-    position: relative;
-    border: 1px solid rgba(0, 0, 0, 1);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
+    position: fixed; /* Fixed header */
+    top: 0;
+    border: none; /* Remove border if not needed */
+    box-shadow: none; /* Remove box shadow if not needed */
+    z-index: 10; /* Ensure header is above other content */
+}
+
+.brand, .login {
+    position: absolute;
+    color: white;
+    font-size: 24px; /* Brand font size */
+}
+
+.brand {
+    top: 20px;
+    left: 20px;
+}
+
+.login {
+    top: 20px;
+    right: 20px;
+    font-size: 1rem; /* Login link font size */
+    text-decoration: none; /* No underline for login link */
+}
+
+.login a {
+    color: #3F748F; /* Same color as the brand */
+    text-decoration: none; /* No underline */
+}
+
+.login a:hover {
+    text-decoration: underline; /* Underline on hover */
 }
 
 .description {
-    width: 919px;
-    color: rgba(255, 255, 255, 1);
+    max-width: 920px; /* Limit the width to prevent overflow */
+    color: white;
     position: absolute;
-    top: 400px;
+    top: 40%; /* Adjust top position as needed */
     left: 80px;
     font-weight: 700;
-    font-size: 70px;
-    line-height: 70px;
-    opacity: 1;
+    font-size: 2.5rem; /* Adjust font size as needed */
+    line-height: 1.2; /* Adjust line height for better readability */
     text-align: left;
 }
 
 .cta-section {
-    width: 343px;
-    height: 61px;
-    opacity: 1;
     position: absolute;
-    top: 572px;
+    top: 60%; /* Adjust top position to not overlap the description */
     left: 80px;
-    overflow: hidden;
 }
 
 .cta {
-    width: 342px;
-    color: rgba(255, 255, 255, 1);
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-family: 'Poppins', sans-serif;
-    font-weight: normal;
-    font-size: 28px;
-    opacity: 1;
-    text-align: left;
+    color: white;
+    font-size: 1.5rem; /* Adjust cta font size as needed */
+    text-decoration: underline; /* Underline for 'Ready to get started?' */
+    cursor: pointer; /* Indicates the text is clickable */
 }
 
-.additional-info {
-    width: 23px;
-    opacity: 1;
-    position: absolute;
-    top: 35px;
-    left: 320px;
-    border: 2px solid rgba(255, 255, 255, 1);
-}
-
-.brand {
-    position:absolute;
-    top:20px;
-    left:20px;
-    color:white;
-    font-size:24px; /* Adjusted font size */
-}
-
-.login {
-    position:absolute;
-    top:20px;
-    right:20px;
-    color:white;
+/* Additional media query for responsiveness */
+@media (max-width: 768px) {
+    .description {
+        font-size: 1.5rem; /* Smaller font size for mobile */
+        line-height: 1.3;
+    }
+    .cta {
+        font-size: 1.2rem; /* Smaller cta font size for mobile */
+    }
+    .login {
+        font-size: 16px; /* Modified login link font size for mobile */
+    }
 }
