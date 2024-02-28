@@ -12,12 +12,12 @@
     <div class="header"></div>
 
     <span class="brand">Finanss</span>
-    <span class="login"><a href="login.html">Log in to your account</a></span>
+    <span class="login"><a href="login.php">Log in to your account</a></span>
 
     <span class="description">Take control of your finances with ease, achieve your financial goals.</span>
 
     <div class="cta-section">
-        <a href="registration.html" class='cta-link'><span class='cta'>Ready to get started?</span></a>
+        <a href="registration.php" class='cta-link'><span class='cta'>Ready to get started?</span></a>
     </div>
 </div>
 </body>
