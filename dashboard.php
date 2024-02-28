@@ -11,10 +11,10 @@
     <div class="user-info"></div>
     <span class="app-title">Finance</span>
     <div class="menu">
-        <span class="menu-item">Dashboard</span>
-        <span class="menu-item">Income</span>
-        <span class="menu-item">Expense</span>
-        <span class="menu-item">Budget</span>
+        <a href="dashboard.php" class="menu-item">Dashboard</a>
+        <a href="income.php" class="menu-item">Income</a>
+        <a href="expense.php" class="menu-item">Expense</a>
+        <a href="budget.php" class="menu-item">Budget</a>
     </div>
     <div class="footer"></div>
     <span class="user">user</span>
