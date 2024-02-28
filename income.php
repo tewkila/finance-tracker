@@ -8,7 +8,7 @@
 <body>
     <div class="header"></div>
     <div class="user-info"></div>
-    <span class="app-title">Finanss</span>
+    <a href="index.php" class="app-title">Finanss</a>
     <div class="menu">
         <a href="dashboard.php" class="menu-item">Dashboard</a>
         <a href="income.php" class="menu-item">Income</a>
