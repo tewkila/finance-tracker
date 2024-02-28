@@ -8,7 +8,9 @@
 <body>
 <div class="header"></div>
 <div class="user-info"></div>
-<span class="app-title">Finanss</span>
+<span class="app-title">
+    <a href="index.html" class="home-link">Finanss</a>
+  </span>
 
 <!-- Login Form -->
 <div class="login-form">
@@ -20,9 +22,7 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
 
-        <label for="remember">Remember Me:</label>
-        <input type="checkbox" id="remember" name="remember">
-
+        
         <a href="password-reset.php" class="forgot-password">Forgot Password?</a>
 
         <button type="submit">Login</button>
