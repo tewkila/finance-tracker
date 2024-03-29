@@ -1,3 +1,54 @@
+<?php
+session_start(); // Start the session
+
+// Check if income data exists in the session, if not, initialize it
+if (!isset($_SESSION['incomeData'])) {
+    $_SESSION['incomeData'] = [];
+}
+
+// Check if form is submitted
+if(isset($_POST['submit'])){
+    // Retrieve form data
+    $amount = $_POST['amount'];
+    $source = $_POST['source'];
+    $date = $_POST['date'];
+
+    if(isset($_POST['edit_key']) && $_POST['edit_key'] !== '') {
+        // Edit existing entry
+        $editKey = $_POST['edit_key'];
+        $_SESSION['incomeData'][$editKey] = [
+            'amount' => $amount,
+            'source' => $source,
+            'date' => $date
+        ];
+    } else {
+        // Add new income to the income data array in the session
+        $_SESSION['incomeData'][] = [
+            'amount' => $amount,
+            'source' => $source,
+            'date' => $date
+        ];
+    }
+}
+
+// Check if delete button is clicked
+if(isset($_POST['delete'])) {
+    $deleteKey = $_POST['delete_key'];
+    unset($_SESSION['incomeData'][$deleteKey]); // Delete the entry from the session array
+    header("Location: income.php"); // Redirect to refresh the page
+}
+
+// Check if edit button is clicked
+if(isset($_POST['edit'])) {
+    $editKey = $_POST['edit_key'];
+    // Populate the form fields with existing data for editing
+    $editIncome = $_SESSION['incomeData'][$editKey];
+    $editAmount = $editIncome['amount'];
+    $editSource = $editIncome['source'];
+    $editDate = $editIncome['date'];
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,17 +72,17 @@
     <h2>Income Page</h2>
     <!-- Form to add income details -->
     <form action="income.php" method="post">
-        <input type="hidden" id="edit_key" name="edit_key" value="">
+        <input type="hidden" id="edit_key" name="edit_key" value="<?php if(isset($editKey)) echo $editKey; ?>">
         <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" required>
+        <input type="number" id="amount" name="amount" value="<?php if(isset($editAmount)) echo $editAmount; ?>" required>
 
         <label for="source">Source:</label>
-        <input type="text" id="source" name="source" required>
+        <input type="text" id="source" name="source" value="<?php if(isset($editSource)) echo $editSource; ?>" required>
 
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required>
+        <input type="date" id="date" name="date" value="<?php if(isset($editDate)) echo $editDate; ?>" required>
 
-        <button type="submit" name="submit">Submit</button>
+        <button type="submit" name="submit"><?php if(isset($editKey)) echo "Update"; else echo "Submit"; ?></button>
     </form>
 
     <!-- Table to display existing income entries -->
@@ -46,37 +97,6 @@
         </thead>
         <tbody>
         <?php
-        session_start(); // Start the session
-        // Check if income data exists in the session, if not, initialize it
-        if (!isset($_SESSION['incomeData'])) {
-            $_SESSION['incomeData'] = [];
-        }
-
-        // Check if form is submitted
-        if(isset($_POST['submit'])){
-            // Retrieve form data
-            $amount = $_POST['amount'];
-            $source = $_POST['source'];
-            $date = $_POST['date'];
-
-            if(isset($_POST['edit_key'])) {
-                // Edit existing entry
-                $editKey = $_POST['edit_key'];
-                $_SESSION['incomeData'][$editKey] = [
-                    'amount' => $amount,
-                    'source' => $source,
-                    'date' => $date
-                ];
-            } else {
-                // Add new income to the income data array in the session
-                $_SESSION['incomeData'][] = [
-                    'amount' => $amount,
-                    'source' => $source,
-                    'date' => $date
-                ];
-            }
-        }
-
         // Loop through income data array and display each entry in the table
         foreach ($_SESSION['incomeData'] as $key => $income) {
             echo "<tr>";
@@ -95,26 +115,6 @@
             echo "</form>";
             echo "</td>";
             echo "</tr>";
-        }
-
-        // Check if delete button is clicked
-        if(isset($_POST['delete'])) {
-            $deleteKey = $_POST['delete_key'];
-            unset($_SESSION['incomeData'][$deleteKey]); // Delete the entry from the session array
-            header("Location: income.php"); // Redirect to refresh the page
-        }
-
-        // Check if edit button is clicked
-        if(isset($_POST['edit'])) {
-            $editKey = $_POST['edit_key'];
-            // Populate the form fields with existing data for editing
-            $editIncome = $_SESSION['incomeData'][$editKey];
-            echo "<script>
-                        document.getElementById('amount').value = '" . $editIncome['amount'] . "';
-                        document.getElementById('source').value = '" . $editIncome['source'] . "';
-                        document.getElementById('date').value = '" . $editIncome['date'] . "';
-                        document.getElementById('edit_key').value = '" . $editKey . "';
-                     </script>";
         }
         ?>
         </tbody>
