@@ -1,3 +1,54 @@
+<?php
+session_start(); // Start the session
+
+// Check if expense data exists in the session, if not, initialize it
+if (!isset($_SESSION['expenseData'])) {
+    $_SESSION['expenseData'] = [];
+}
+
+// Check if form is submitted
+if (isset($_POST['submit'])) {
+    // Retrieve form data
+    $amount = $_POST['amount'];
+    $category = $_POST['category'];
+    $date = $_POST['date'];
+
+    if (isset($_POST['edit_key']) && $_POST['edit_key'] !== '') {
+        // Edit existing entry
+        $editKey = $_POST['edit_key'];
+        $_SESSION['expenseData'][$editKey] = [
+            'amount' => $amount,
+            'category' => $category,
+            'date' => $date
+        ];
+    } else {
+        // Add new expense to the expense data array in the session
+        $_SESSION['expenseData'][] = [
+            'amount' => $amount,
+            'category' => $category,
+            'date' => $date
+        ];
+    }
+}
+
+// Check if delete button is clicked
+if (isset($_POST['delete'])) {
+    $deleteKey = $_POST['delete_key'];
+    unset($_SESSION['expenseData'][$deleteKey]); // Delete the entry from the session array
+    header("Location: expense.php"); // Redirect to refresh the page
+}
+
+// Check if edit button is clicked
+if (isset($_POST['edit'])) {
+    $editKey = $_POST['edit_key'];
+    // Populate the form fields with existing data for editing
+    $editExpense = $_SESSION['expenseData'][$editKey];
+    $editAmount = $editExpense['amount'];
+    $editCategory = $editExpense['category'];
+    $editDate = $editExpense['date'];
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,21 +72,21 @@
     <h2>Expense Page</h2>
     <!-- Form to add expense details -->
     <form action="expense.php" method="post">
-        <input type="hidden" id="edit_key" name="edit_key" value="">
+        <input type="hidden" id="edit_key" name="edit_key" value="<?php if(isset($editKey)) echo $editKey; ?>">
         <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" required>
+        <input type="number" id="amount" name="amount" value="<?php if(isset($editAmount)) echo $editAmount; ?>" required>
 
         <label for="category">Category:</label>
         <select id="category" name="category" required>
-            <option value="Groceries">Groceries</option>
-            <option value="Utilities">Utilities</option>
-            <option value="Entertainment">Entertainment</option>
+            <option value="Groceries" <?php if(isset($editCategory) && $editCategory == "Groceries") echo "selected"; ?>>Groceries</option>
+            <option value="Utilities" <?php if(isset($editCategory) && $editCategory == "Utilities") echo "selected"; ?>>Utilities</option>
+            <option value="Entertainment" <?php if(isset($editCategory) && $editCategory == "Entertainment") echo "selected"; ?>>Entertainment</option>
         </select>
 
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required>
+        <input type="date" id="date" name="date" value="<?php if(isset($editDate)) echo $editDate; ?>" required>
 
-        <button type="submit" name="submit">Submit</button>
+        <button type="submit" name="submit"><?php if(isset($editKey)) echo "Update"; else echo "Submit"; ?></button>
     </form>
 
     <!-- Table to display existing expense entries -->
@@ -50,37 +101,6 @@
         </thead>
         <tbody>
         <?php
-        session_start(); // Start the session
-        // Check if expense data exists in the session, if not, initialize it
-        if (!isset($_SESSION['expenseData'])) {
-            $_SESSION['expenseData'] = [];
-        }
-
-        // Check if form is submitted
-        if(isset($_POST['submit'])){
-            // Retrieve form data
-            $amount = $_POST['amount'];
-            $category = $_POST['category'];
-            $date = $_POST['date'];
-
-            if(isset($_POST['edit_key'])) {
-                // Edit existing entry
-                $editKey = $_POST['edit_key'];
-                $_SESSION['expenseData'][$editKey] = [
-                    'amount' => $amount,
-                    'category' => $category,
-                    'date' => $date
-                ];
-            } else {
-                // Add new expense to the expense data array in the session
-                $_SESSION['expenseData'][] = [
-                    'amount' => $amount,
-                    'category' => $category,
-                    'date' => $date
-                ];
-            }
-        }
-
         // Loop through expense data array and display each entry in the table
         foreach ($_SESSION['expenseData'] as $key => $expense) {
             echo "<tr>";
@@ -99,26 +119,6 @@
             echo "</form>";
             echo "</td>";
             echo "</tr>";
-        }
-
-        // Check if delete button is clicked
-        if(isset($_POST['delete'])) {
-            $deleteKey = $_POST['delete_key'];
-            unset($_SESSION['expenseData'][$deleteKey]); // Delete the entry from the session array
-            header("Location: expense.php"); // Redirect to refresh the page
-        }
-
-        // Check if edit button is clicked
-        if(isset($_POST['edit'])) {
-            $editKey = $_POST['edit_key'];
-            // Populate the form fields with existing data for editing
-            $editExpense = $_SESSION['expenseData'][$editKey];
-            echo "<script>
-                    document.getElementById('amount').value = '" . $editExpense['amount'] . "';
-                    document.getElementById('category').value = '" . $editExpense['category'] . "';
-                    document.getElementById('date').value = '" . $editExpense['date'] . "';
-                    document.getElementById('edit_key').value = '" . $editKey . "';
-                 </script>";
         }
         ?>
         </tbody>
