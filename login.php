@@ -10,14 +10,14 @@
 <div class="user-info"></div>
 <span class="app-title">
     <a href="index.php" class="home-link">Finanss</a>
-  </span>
+</span>
 
 <!-- Login Form -->
 <div class="login-form">
     <h2>Login</h2>
     <form action="dashboard.php" method="get">
-        <label for="username">Username or Email:</label>
-        <input type="text" id="username" name="username" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="username" required>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
