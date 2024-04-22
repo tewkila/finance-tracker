@@ -1,0 +1,106 @@
+/* Set the entire page background color */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #EBEBEE;
+}
+
+/* Finance dashboard container */
+.finance-dashboard {
+    padding: 20px;
+    max-width: 800px; /* Limit width for better readability */
+    margin: 0 auto; /* Center the dashboard */
+}
+
+
+/* App title */
+.app-title {
+    font-size: 24px;
+    color: #3F748F;
+    font-weight: bold;
+    margin-left: 20px; /* Add margin to the left */
+    text-decoration: none;
+}
+
+/* User info (top right corner) */
+.user-info {
+    font-size: 18px;
+    color: #424545;
+    margin-right: 20px; /* Add margin to the right */
+}
+
+/* Menu navigation */
+.menu {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-item {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+/* Header section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* Welcome message */
+.welcome-message {
+    font-size: 18px;
+    color: #424545;
+    margin-top: 20px;
+}
+
+/* Information cards */
+.balance-info,
+.expense-info,
+.income-info {
+    background-color: #ffffff; /* Add white background color */
+    border-radius: 5px;
+    padding: 30px; /* Increase padding for better spacing */
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Icon for each info card */
+.info-icon {
+    font-size: 24px; /* Increase icon size */
+    width: 50px; /* Adjust width for better proportions */
+    height: 50px; /* Adjust height for better proportions */
+    background-color: #3F748F;
+    margin-right: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #EBEBEE;
+}
+
+/* Info labels and amounts */
+.info-label {
+    font-weight: bold;
+    color: #424545;
+    font-size: 18px; /* Reduce font size for better balance */
+    margin-right: 10px; /* Add margin between label and amount */
+}
+
+.amount {
+    font-size: 28px; /* Increase font size for emphasis */
+    margin-right: 10px; /* Add margin between amount and sign */
+}
+
+/* Recent section label */
+.recent {
+    font-weight: bold;
+    color: #424545;
+    font-size: 24px; /* Increase font size for emphasis */
+    margin-top: 20px;
+}

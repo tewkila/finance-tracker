@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+    <title>Registration</title>
+</head>
+<body>
+<div class="header"></div>
+<div class="user-info"></div>
+<span class="app-title">
+    <a href="{{ url('/') }}" class="home-link">Finanss</a>
+</span>
+
+<!-- Registration Form -->
+<div class="registration-form">
+    <h2>Registration</h2>
+    <form method="post" action="{{ url('/registration') }}">
+        @csrf <!-- handles POST requests securely -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required
+               pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="Password must be at least 8 characters long and include at least one uppercase letter and one number.">
+        <button type="submit" name="register">Register</button>
+    </form>
+</div>
+</body>
+</html>
