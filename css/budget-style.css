@@ -1,0 +1,104 @@
+/* Set the entire page background color */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5; /* Light gray background */
+}
+
+/* Header section */
+.header {
+    padding: 20px 0;
+}
+
+/* App title */
+.app-title {
+    font-size: 24px;
+    color: #3F748F;
+    font-weight: bold;
+    margin-left: 20px; /* Add margin to the left */
+    text-decoration: none;
+}
+
+/* User info (top right corner) */
+.user-info {
+    font-size: 18px;
+    color: #424545;
+    margin-right: 20px; /* Add margin to the right */
+}
+
+/* Menu navigation */
+.menu {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-item {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+/* Budget Page */
+.budget-page {
+    padding: 20px;
+    max-width: 800px; /* Limit width for better readability */
+    margin: 0 auto; /* Center the page */
+}
+
+/* Budget Page Title */
+.budget-page h2 {
+    color: #3F748F; /* Dark blue text color */
+    margin-bottom: 20px; /* Add some space below the title */
+}
+
+/* Form to set budget for different categories */
+form {
+    margin-bottom: 20px; /* Add some space below the form */
+}
+
+.form-row {
+    margin-bottom: 10px; /* Add some space between form rows */
+}
+
+label {
+    display: block; /* Display labels in block style */
+    margin-bottom: 5px; /* Add some space below each label */
+    color: #424545; /* Dark gray text color */
+}
+
+input[type="number"] {
+    width: calc(100% - 22px); /* Make input fields full-width minus scrollbar width */
+    padding: 10px; /* Add some padding for better appearance */
+    border-radius: 5px; /* Add rounded corners */
+    border: 1px solid #ccc; /* Add a light gray border */
+}
+
+button[type="submit"] {
+    background-color: #3F748F; /* Dark blue background */
+    color: #EBEBEB; /* Light gray text color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+button[type="submit"]:hover {
+    background-color: #2E596F; /* Darker blue on hover */
+}
+
+/* Visualization of budget allocation */
+.budget-chart {
+    background-color: #EBEBEB; /* Light gray background */
+    padding: 20px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
+    margin-bottom: 20px; /* Add some space below */
+}
+
+/* Alerts or notifications when nearing or exceeding budget limits */
+.budget-alerts {
+    background-color: #FFCCCC; /* Light red background */
+    padding: 20px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
+}
