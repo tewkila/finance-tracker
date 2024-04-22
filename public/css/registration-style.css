@@ -1,0 +1,81 @@
+/* Resetting default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #EBEBEE;
+}
+
+.user-info {
+    background-color: #060E10;
+    color: #ffffff;
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.app-title {
+    color: #3F748F;
+    font-size: 36px;
+    font-weight: bold;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.registration-form {
+    background-color: #424545;
+    color: #ffffff;
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.registration-form h2 {
+    margin-bottom: 20px;
+}
+
+.registration-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.registration-form input {
+    width: calc(100% - 10px);
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: none;
+}
+
+.registration-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #3F748F;
+    color: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.registration-form button:hover {
+    background-color: #060E10;
+}
+
+/* Add styling for the home-link class */
+.home-link {
+    color: #3F748F; /* Change link color to match your design */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Add styling for when the link is hovered */
+.home-link:hover {
+    text-decoration: underline; /* Add underline on hover */
+}

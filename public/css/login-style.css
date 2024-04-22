@@ -1,0 +1,92 @@
+/* Importing the Poppins font from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+/* General Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #EBEBEE; /* Background color */
+    margin: 0;
+    padding: 0;
+    color: #424545; /* General text color for additional divs and others */
+}
+
+/* App Title Styling */
+.app-title {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    color: #3F748F; /* Logo color */
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.app-title a {
+    color: #3F748F; /* Purple color */
+    text-decoration: none; /* Remove default link underline */
+}
+
+.app-title a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Login Form Styling */
+.login-form {
+    background-color: #424545; /* Additional divs background color */
+    color: #fff; /* For better readability */
+    padding: 20px;
+    margin: auto; /* Center horizontally */
+    width: 50%;
+    border-radius: 8px;
+    text-align: center; /* Center the contents */
+}
+
+.login-form h2 {
+    text-align: center;
+    color: #3F748F; /* Logo color */
+}
+
+.login-form form {
+    display: block;
+    width: 100%;
+}
+
+.login-form label {
+    display: block; /* Display labels in block style */
+    margin-top: 10px;
+    text-align: left; /* Align labels to the left */
+    color: #EBEBEB; /* Label text color */
+}
+
+/* Updated input styles */
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    width: calc(100% - 20px); /* Make input fields full-width with 20px padding */
+}
+
+.login-form .forgot-password {
+    color: #EBEBEB;
+    text-decoration: none;
+    font-size: 14px;
+    display: block; /* Display the link as block to move it below */
+    text-align: right; /* Align the forgot password link to the right */
+    margin-top: 10px;
+}
+
+.login-form button {
+    background-color: #060E10; /* Menu background color */
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.login-form button:hover {
+    background-color: #3F748F; /* Dark blue on hover */
+}
