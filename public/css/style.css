@@ -270,3 +270,9 @@ body {
 .home-link:hover {
     text-decoration: underline; /* Add underline on hover */
 }
+
+.error {
+    color: #e14c4c;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
