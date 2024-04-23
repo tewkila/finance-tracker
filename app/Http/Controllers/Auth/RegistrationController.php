@@ -18,7 +18,7 @@ class RegistrationController extends Controller
     {
         $this->validator($request->all())->validate();
         $user = $this->create($request->all());
-        return redirect('/home'); // Or redirect to another appropriate route
+        return redirect('/dashboard'); // Or redirect to another appropriate route
     }
 
     protected function validator(array $data)

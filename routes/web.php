@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\RegistrationController;
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -20,5 +20,10 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/registration', 'Auth\RegistrationController@showRegistrationForm')->name('registration');
-Route::post('/registration', 'Auth\RegistrationController@handleRegistration');
+Route::get('/registration', [RegistrationController::class, 'showRegistrationForm'])->name('registration');
+Route::post('/registration', [RegistrationController::class, 'handleRegistration'])->name('registration.submit');
+
+Route::get('/test-blade', function () {
+    return view('test');
+});
+

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="/finance-tracker/public/css/style.css" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <title>Registration</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
 <!-- Registration Form -->
 <div class="registration-form">
     <h2>Registration</h2>
-    <form method="post" action="{{ url('/registration') }}">
+    <form method="POST" action="{{ route('registration.submit') }}">
         @csrf <!-- CSRF token for security -->
 
         <label for="username">Username:</label>
