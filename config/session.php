@@ -18,7 +18,9 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'file'),
+//    'driver' => env('SESSION_DRIVER', 'file'), - this was before
+    'driver' => 'array', //changed it temporarily before implementing SQL functions
+
 
     /*
     |--------------------------------------------------------------------------

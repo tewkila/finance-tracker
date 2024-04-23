@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="#" />
+    <link href="{{ asset('css/expense-style.css') }}" rel="stylesheet">
     <title>Expense</title>
 </head>
 <body>
@@ -10,10 +10,10 @@
 <div class="user-info"></div>
 <a href="#" class="app-title">Finanss</a>
 <div class="menu">
-    <a href="#" class="menu-item">Dashboard</a>
-    <a href="#" class="menu-item">Income</a>
-    <a href="#" class="menu-item">Expense</a>
-    <a href="#" class="menu-item">Budget</a>
+    <a href="{{ route('dashboard') }}" class="menu-item">Dashboard</a>
+    <a href="{{ route('income') }}" class="menu-item">Income</a>
+    <a href="{{ route('expense') }}" class="menu-item">Expense</a>
+    <a href="{{ route('budget') }}" class="menu-item">Budget</a>
 </div>
 
 <!-- Expense Page -->
@@ -35,7 +35,7 @@
         <label for="date">Date:</label>
         <input type="date" id="date" name="date" value="required">
 
-        <button type="submit" name="submit"></button>
+        <button type="submit" name="submit">submit</button>
     </form>
 
     <!-- Table to display existing expense entries -->

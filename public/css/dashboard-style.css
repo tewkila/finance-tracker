@@ -6,6 +6,10 @@ body {
     background-color: #EBEBEE;
 }
 
+a {
+    text-decoration: none;
+}
+
 /* Finance dashboard container */
 .finance-dashboard {
     padding: 20px;

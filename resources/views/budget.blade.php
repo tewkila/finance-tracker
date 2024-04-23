@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="#" rel="stylesheet" />
+    <link href="{{ asset('css/budget-style.css') }}" rel="stylesheet">
     <title>Budget</title>
 </head>
 <body>
@@ -12,10 +12,10 @@
 
 <!-- Menu -->
 <div class="menu">
-    <a href="#" class="menu-item">Dashboard</a>
-    <a href="#" class="menu-item">Income</a>
-    <a href="#" class="menu-item">Expense</a>
-    <a href="#" class="menu-item">Budget</a>
+    <a href="{{ route('dashboard') }}" class="menu-item">Dashboard</a>
+    <a href="{{ route('income') }}" class="menu-item">Income</a>
+    <a href="{{ route('expense') }}" class="menu-item">Expense</a>
+    <a href="{{ route('budget') }}" class="menu-item">Budget</a>
 </div>
 
 <!-- Budget Page -->
