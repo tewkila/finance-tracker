@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             session_regenerate_id();
                             $_SESSION['loggedin'] = true;
                             $_SESSION['id'] = $id;
+                            $_SESSION['user_id'] = $id;
                             $_SESSION['email'] = $email;
 
                             // Redirect user to dashboard page
