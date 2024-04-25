@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php'; // Include database configuration
+require_once 'settings/config.php'; // Include database configuration
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="./css/login-style.css" rel="stylesheet" />
+    <link href="assets/css/login-style.css" rel="stylesheet" />
     <title>Login</title>
 </head>
 <body>

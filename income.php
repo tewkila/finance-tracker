@@ -53,7 +53,7 @@ if(isset($_POST['edit'])) {
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="./css/income-style.css" rel="stylesheet" />
+    <link href="assets/css/income-style.css" rel="stylesheet" />
     <title>Income</title>
 </head>
 <body>

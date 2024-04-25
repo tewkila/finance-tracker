@@ -1,59 +1,52 @@
 <?php
 session_start(); // Start the session
 
-// Check if expense data exists in the session, if not, initialize it
-if (!isset($_SESSION['expenseData'])) {
-    $_SESSION['expenseData'] = [];
-}
+require_once 'settings/config.php';
 
-// Check if form is submitted
-if (isset($_POST['submit'])) {
-    // Retrieve form data
+// Handle form submission for adding or updating expenses
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $amount = $_POST['amount'];
     $category = $_POST['category'];
     $date = $_POST['date'];
+    $expense_id = $_POST['expense_id'] ?? null;
 
-    if (isset($_POST['edit_key']) && $_POST['edit_key'] !== '') {
-        // Edit existing entry
-        $editKey = $_POST['edit_key'];
-        $_SESSION['expenseData'][$editKey] = [
-            'amount' => $amount,
-            'category' => $category,
-            'date' => $date
-        ];
+    if ($expense_id) {
+        // Update existing expense
+        $sql = "UPDATE expenses SET amount = ?, category = ?, date = ? WHERE id = ? AND user_id = ?";
+        $stmt = $link->prepare($sql);
+        $stmt->bind_param("dssii", $amount, $category, $date, $expense_id, $_SESSION['user_id']);
     } else {
-        // Add new expense to the expense data array in the session
-        $_SESSION['expenseData'][] = [
-            'amount' => $amount,
-            'category' => $category,
-            'date' => $date
-        ];
+        // Add new expense
+        $sql = "INSERT INTO expenses (user_id, amount, category, date) VALUES (?, ?, ?, ?)";
+        $stmt = $link->prepare($sql);
+        $stmt->bind_param("idss", $_SESSION['user_id'], $amount, $category, $date);
     }
-}
+    $stmt->execute();
+    $stmt->close();
 
-// Check if delete button is clicked
-if (isset($_POST['delete'])) {
-    $deleteKey = $_POST['delete_key'];
-    unset($_SESSION['expenseData'][$deleteKey]); // Delete the entry from the session array
     header("Location: expense.php"); // Redirect to refresh the page
+    exit;
 }
 
-// Check if edit button is clicked
-if (isset($_POST['edit'])) {
-    $editKey = $_POST['edit_key'];
-    // Populate the form fields with existing data for editing
-    $editExpense = $_SESSION['expenseData'][$editKey];
-    $editAmount = $editExpense['amount'];
-    $editCategory = $editExpense['category'];
-    $editDate = $editExpense['date'];
+// Handle delete request
+if (isset($_POST['delete']) && isset($_POST['expense_id'])) {
+    $expense_id = $_POST['expense_id'];
+    $sql = "DELETE FROM expenses WHERE id = ? AND user_id = ?";
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("ii", $expense_id, $_SESSION['user_id']);
+    $stmt->execute();
+    $stmt->close();
+
+    header("Location: expense.php"); // Redirect to refresh the page
+    exit;
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="./css/expense-style.css" rel="stylesheet" />
+    <link href="assets/css/expense-style.css" rel="stylesheet" />
     <title>Expense</title>
 </head>
 <body>
@@ -70,24 +63,24 @@ if (isset($_POST['edit'])) {
 <!-- Expense Page -->
 <div class="expense-page">
     <h2>Expense Page</h2>
-    <!-- Form to add expense details -->
-    <form action="expense.php" method="post">
-        <input type="hidden" id="edit_key" name="edit_key" value="<?php if(isset($editKey)) echo $editKey; ?>">
+    <form action="settings/process_expense.php" method="post">
+        <input type="hidden" name="expense_id" value="<?php echo isset($editKey) ? $editKey : ''; ?>">
         <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" value="<?php if(isset($editAmount)) echo $editAmount; ?>" required>
+        <input type="number" id="amount" name="amount" required min="0" value="<?php echo isset($editAmount) ? $editAmount : ''; ?>">
 
         <label for="category">Category:</label>
         <select id="category" name="category" required>
-            <option value="Groceries" <?php if(isset($editCategory) && $editCategory == "Groceries") echo "selected"; ?>>Groceries</option>
-            <option value="Utilities" <?php if(isset($editCategory) && $editCategory == "Utilities") echo "selected"; ?>>Utilities</option>
-            <option value="Entertainment" <?php if(isset($editCategory) && $editCategory == "Entertainment") echo "selected"; ?>>Entertainment</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Entertainment">Entertainment</option>
         </select>
 
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" value="<?php if(isset($editDate)) echo $editDate; ?>" required>
+        <input type="date" id="date" name="date" required value="<?php echo isset($editDate) ? $editDate : ''; ?>">
 
-        <button type="submit" name="submit"><?php if(isset($editKey)) echo "Update"; else echo "Submit"; ?></button>
+        <button type="submit" name="submit">Submit</button>
     </form>
+
 
     <!-- Table to display existing expense entries -->
     <table>
@@ -100,29 +93,23 @@ if (isset($_POST['edit'])) {
         </tr>
         </thead>
         <tbody>
-        <?php
-        // Loop through expense data array and display each entry in the table
-        foreach ($_SESSION['expenseData'] as $key => $expense) {
-            echo "<tr>";
-            echo "<td>" . $expense['amount'] . "</td>";
-            echo "<td>" . $expense['category'] . "</td>";
-            echo "<td>" . $expense['date'] . "</td>";
-            echo "<td>";
-            // Add edit and delete buttons for each entry
-            echo "<form action='expense.php' method='post' style='display: inline;'>";
-            echo "<input type='hidden' name='edit_key' value='$key'>";
-            echo "<button type='submit' name='edit'>Edit</button>";
-            echo "</form>";
-            echo "<form action='expense.php' method='post' style='display: inline;'>";
-            echo "<input type='hidden' name='delete_key' value='$key'>";
-            echo "<button type='submit' name='delete'>Delete</button>";
-            echo "</form>";
-            echo "</td>";
-            echo "</tr>";
-        }
-        ?>
+        <?php foreach ($expenses as $expense) { ?>
+            <tr>
+                <td><?php echo htmlspecialchars($expense['amount']); ?></td>
+                <td><?php echo htmlspecialchars($expense['category']); ?></td>
+                <td><?php echo htmlspecialchars($expense['date']); ?></td>
+                <td>
+                    <a href="expense.php?edit=<?php echo $expense['id']; ?>">Edit</a>
+                    <form action="expense.php" method="post" style="display:inline;">
+                        <input type="hidden" name="expense_id" value="<?php echo $expense['id']; ?>">
+                        <button type="submit" name="delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <?php } ?>
         </tbody>
     </table>
 </div>
+
 </body>
 </html>

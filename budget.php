@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="./css/budget-style.css" rel="stylesheet" />
+    <link href="assets/css/budget-style.css" rel="stylesheet" />
     <title>Budget</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
 <div class="budget-page">
     <h2>Budget Page</h2>
     <!-- Form to set budget for different categories -->
-    <form>
+    <form action="settings/process_budget.php" method="post">
         <div class="form-row">
             <label for="groceries">Groceries:</label>
             <input type="number" id="groceries" name="groceries" required>
@@ -38,17 +38,6 @@
         <button type="submit">Set Budget</button>
     </form>
 
-    <!-- Visualization of budget allocation -->
-    <div class="budget-chart">
-        <!-- Chart visualization will be displayed here -->
-        <p>This is where the budget chart will be displayed.</p>
-    </div>
-
-    <!-- Alerts or notifications when nearing or exceeding budget limits -->
-    <div class="budget-alerts">
-        <!-- Alerts or notifications will be displayed here -->
-        <p>This is where the budget alerts or notifications will be displayed.</p>
-    </div>
 </div>
 
 </body>

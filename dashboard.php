@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="./css/dashboard-style.css" rel="stylesheet" />
+    <link href="assets/css/dashboard-style.css" rel="stylesheet" />
     <title>Finance Dashboard</title>
 </head>
 <body>

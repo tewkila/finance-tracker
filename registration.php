@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-require_once 'config.php';  // Include the database connection
+require_once 'settings/config.php';  // Include the database connection
 
 
 $errors = [];  // Initialize an array to hold error messages
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
 <html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="./css/registration-style.css" rel="stylesheet" />
+    <link href="assets/css/registration-style.css" rel="stylesheet" />
     <title>Registration</title>
 </head>
 <body>
