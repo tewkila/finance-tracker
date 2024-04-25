@@ -71,7 +71,7 @@ $expenses = fetchExpenses($link);
                 <td><?= htmlspecialchars($expense['category']); ?></td>
                 <td><?= htmlspecialchars($expense['date']); ?></td>
                 <td>
-                    <button onclick="editExpense('<?= $expense['id']; ?>', '<?= $expense['amount']; ?>', '<?= $expense['category']; ?>', '<?= $expense['date']; ?>')">Edit</button>
+                    <button type="submit" onclick="editExpense('<?= $expense['id']; ?>', '<?= $expense['amount']; ?>', '<?= $expense['category']; ?>', '<?= $expense['date']; ?>')">Edit</button>
                     <form action="settings/process_expense.php" method="post">
                         <input type="hidden" name="delete" value="<?= $expense['id']; ?>">
                         <button type="submit">Delete</button>

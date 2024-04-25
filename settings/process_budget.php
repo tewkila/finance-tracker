@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once 'settings/config.php';
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Assuming user_id is stored in session upon login
