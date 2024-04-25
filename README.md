@@ -1,2 +1,11 @@
-Manana Bebia (Mabebi) - Responsible for HTML, specifically income, login, and register pages
-Tekla Berozashvili (Tebero) - Responsible for CSS and debugging HTML pages. 
+# Finance Tracker
+
+## Project Access
+Link: [Finance Tracker](https://enos.itcollege.ee/~tebero/finance-tracker/)
+
+## Development Team
+- **Manana Bebia (mabebi)** - CSS, JavaScript
+- **Tekla Berozashvili (tebero)** - SQL, PHP
+
+## Branch Information
+Active development is on the `main` branch.
