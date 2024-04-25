@@ -1,6 +1,7 @@
 <?php
+require_once 'settings/config.php';
 session_start();
-require_once 'settings/config.php'; ?>
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

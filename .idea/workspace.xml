@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="trying to fix expenses">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/expense.php" beforeDir="false" afterPath="$PROJECT_DIR$/expense.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings/process_budget.php" beforeDir="false" afterPath="$PROJECT_DIR$/settings/process_budget.php" afterDir="false" />
+    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="fixed expenses">
+      <change beforePath="$PROJECT_DIR$/budget.php" beforeDir="false" afterPath="$PROJECT_DIR$/budget.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
-      <workItem from="1714059927852" duration="14436000" />
+      <workItem from="1714059927852" duration="14787000" />
     </task>
     <task id="LOCAL-00001" summary="deleted extras, added SQL">
       <option name="closed" value="true" />
@@ -142,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714083647448</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fixed expenses">
+      <option name="closed" value="true" />
+      <created>1714084322476</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1714084322478</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,7 +170,8 @@
     <MESSAGE value="added error handling" />
     <MESSAGE value="added sql logic" />
     <MESSAGE value="trying to fix expenses" />
-    <option name="LAST_COMMIT_MESSAGE" value="trying to fix expenses" />
+    <MESSAGE value="fixed expenses" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed expenses" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
