@@ -1,58 +1,36 @@
 <?php
-session_start(); // Start the session
-
+session_start();
 require_once 'settings/config.php';
 
-// Handle form submission for adding or updating expenses
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    $amount = $_POST['amount'];
-    $category = $_POST['category'];
-    $date = $_POST['date'];
-    $expense_id = $_POST['expense_id'] ?? null;
-
-    if ($expense_id) {
-        // Update existing expense
-        $sql = "UPDATE expenses SET amount = ?, category = ?, date = ? WHERE id = ? AND user_id = ?";
-        $stmt = $link->prepare($sql);
-        $stmt->bind_param("dssii", $amount, $category, $date, $expense_id, $_SESSION['user_id']);
-    } else {
-        // Add new expense
-        $sql = "INSERT INTO expenses (user_id, amount, category, date) VALUES (?, ?, ?, ?)";
-        $stmt = $link->prepare($sql);
-        $stmt->bind_param("idss", $_SESSION['user_id'], $amount, $category, $date);
-    }
-    $stmt->execute();
-    $stmt->close();
-
-    header("Location: expense.php"); // Redirect to refresh the page
-    exit;
-}
-
-// Handle delete request
-if (isset($_POST['delete']) && isset($_POST['expense_id'])) {
-    $expense_id = $_POST['expense_id'];
-    $sql = "DELETE FROM expenses WHERE id = ? AND user_id = ?";
+// Function to fetch expenses from the database
+function fetchExpenses($link) {
+    $user_id = $_SESSION['user_id'];
+    $sql = "SELECT * FROM expenses WHERE user_id = ?";
     $stmt = $link->prepare($sql);
-    $stmt->bind_param("ii", $expense_id, $_SESSION['user_id']);
+    $stmt->bind_param("i", $user_id);
     $stmt->execute();
+    $result = $stmt->get_result();
+    $expenses = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
-
-    header("Location: expense.php"); // Redirect to refresh the page
-    exit;
+    return $expenses;
 }
+
+// Retrieve expenses to display
+$expenses = fetchExpenses($link);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <link href="assets/css/expense-style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/ajax/libs/poppins/1.0.0/css/poppins.css" rel="stylesheet">
+    <link href="assets/css/expense-style.css" rel="stylesheet">
     <title>Expense</title>
 </head>
 <body>
 <div class="header"></div>
 <div class="user-info"></div>
 <a href="index.php" class="app-title">Finanss</a>
+
 <div class="menu">
     <a href="dashboard.php" class="menu-item">Dashboard</a>
     <a href="income.php" class="menu-item">Income</a>
@@ -60,29 +38,23 @@ if (isset($_POST['delete']) && isset($_POST['expense_id'])) {
     <a href="budget.php" class="menu-item">Budget</a>
 </div>
 
-<!-- Expense Page -->
 <div class="expense-page">
     <h2>Expense Page</h2>
     <form action="settings/process_expense.php" method="post">
-        <input type="hidden" name="expense_id" value="<?php echo isset($editKey) ? $editKey : ''; ?>">
+        <input type="hidden" name="expense_id" id="expense_id">
         <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" required min="0" value="<?php echo isset($editAmount) ? $editAmount : ''; ?>">
-
+        <input type="number" id="amount" name="amount" min="0" required>
         <label for="category">Category:</label>
         <select id="category" name="category" required>
             <option value="Groceries">Groceries</option>
             <option value="Utilities">Utilities</option>
             <option value="Entertainment">Entertainment</option>
         </select>
-
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required value="<?php echo isset($editDate) ? $editDate : ''; ?>">
-
+        <input type="date" id="date" name="date" required>
         <button type="submit" name="submit">Submit</button>
     </form>
 
-
-    <!-- Table to display existing expense entries -->
     <table>
         <thead>
         <tr>
@@ -95,14 +67,14 @@ if (isset($_POST['delete']) && isset($_POST['expense_id'])) {
         <tbody>
         <?php foreach ($expenses as $expense) { ?>
             <tr>
-                <td><?php echo htmlspecialchars($expense['amount']); ?></td>
-                <td><?php echo htmlspecialchars($expense['category']); ?></td>
-                <td><?php echo htmlspecialchars($expense['date']); ?></td>
+                <td><?= htmlspecialchars($expense['amount']); ?></td>
+                <td><?= htmlspecialchars($expense['category']); ?></td>
+                <td><?= htmlspecialchars($expense['date']); ?></td>
                 <td>
-                    <a href="expense.php?edit=<?php echo $expense['id']; ?>">Edit</a>
-                    <form action="expense.php" method="post" style="display:inline;">
-                        <input type="hidden" name="expense_id" value="<?php echo $expense['id']; ?>">
-                        <button type="submit" name="delete">Delete</button>
+                    <button onclick="editExpense('<?= $expense['id']; ?>', '<?= $expense['amount']; ?>', '<?= $expense['category']; ?>', '<?= $expense['date']; ?>')">Edit</button>
+                    <form action="settings/process_expense.php" method="post">
+                        <input type="hidden" name="delete" value="<?= $expense['id']; ?>">
+                        <button type="submit">Delete</button>
                     </form>
                 </td>
             </tr>
@@ -110,6 +82,15 @@ if (isset($_POST['delete']) && isset($_POST['expense_id'])) {
         </tbody>
     </table>
 </div>
+
+<script>
+    function editExpense(id, amount, category, date) {
+        document.getElementById('expense_id').value = id;
+        document.getElementById('amount').value = amount;
+        document.getElementById('category').value = category;
+        document.getElementById('date').value = date;
+    }
+</script>
 
 </body>
 </html>

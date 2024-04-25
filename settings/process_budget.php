@@ -1,27 +1,35 @@
 <?php
-require_once 'settings/config.php'; // Ensure this file contains the correct database connection setup
-
-session_start(); // Start or resume a session
+session_start();
+require_once 'settings/config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $groceries = $link->real_escape_string($_POST['groceries']);
-    $utilities = $link->real_escape_string($_POST['utilities']);
-    $entertainment = $link->real_escape_string($_POST['entertainment']);
+    // Assuming user_id is stored in session upon login
+    $user_id = $_SESSION['user_id'];
 
-    $user_id = $_SESSION['user_id']; // Assumes user_id is stored in session
+    // Prepare and bind
+    $stmt = $link->prepare("REPLACE INTO budgets (user_id, category, amount) VALUES (?, ?, ?), (?, ?, ?), (?, ?, ?)");
 
-    $sql = "REPLACE INTO budgets (user_id, category, amount) VALUES
-            ($user_id, 'Groceries', $groceries),
-            ($user_id, 'Utilities', $utilities),
-            ($user_id, 'Entertainment', $entertainment)";
+    // Sanitize and validate inputs
+    $groceries = filter_input(INPUT_POST, 'groceries', FILTER_VALIDATE_FLOAT);
+    $utilities = filter_input(INPUT_POST, 'utilities', FILTER_VALIDATE_FLOAT);
+    $entertainment = filter_input(INPUT_POST, 'entertainment', FILTER_VALIDATE_FLOAT);
 
-    if ($link->query($sql) === TRUE) {
-        echo "Budget updated successfully";
+    // Execute statement multiple times for different categories
+    $stmt->bind_param("isdisdisd",
+        $user_id, "Groceries", $groceries,
+        $user_id, "Utilities", $utilities,
+        $user_id, "Entertainment", $entertainment);
+
+    // Execute and check for errors
+    if ($stmt->execute()) {
+        echo "Budget updated successfully.";
+        // Redirect back to budget page or to a confirmation page
+        header("Location: budget.php");
+        exit;
     } else {
         echo "Error updating record: " . $link->error;
     }
 
+    $stmt->close();
     $link->close();
-    header("Location: dashboard.php"); // Redirects to dashboard after successful update
-    exit();
 }
