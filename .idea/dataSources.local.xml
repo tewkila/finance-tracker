@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="PS-233.14475.35">
+    <data-source name="ISC0008_17@localhost" uuid="27ecbed3-832b-4302-bc56-c27ff4f90fd9">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>ICS0008_WT_17</user-name>
+      <schema-mapping />
+      <ssh-properties>
+        <enabled>true</enabled>
+        <ssh-config-id>1911f47e-d893-40fd-8b44-7909238853c9</ssh-config-id>
+      </ssh-properties>
+    </data-source>
+  </component>
+</project>
