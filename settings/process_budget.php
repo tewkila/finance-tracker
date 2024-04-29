@@ -4,15 +4,16 @@ require_once '../settings/config.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$user_id = $_SESSION['user_id'] ?? null; // Fallback if not set
-if (!$user_id) {
-    $_SESSION['message'] = "User not logged in.";
-    header("Location: ../login.php");
-    exit;
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $_SESSION['user_id'] ?? null;
+
+    if (!$user_id) {
+        echo "User not logged in.";
+        exit;
+    }
 
     $categories = ['Groceries', 'Utilities', 'Entertainment'];
-    $link->begin_transaction(); // Start a transaction
+    $link->begin_transaction();
     $error = false;
 
     foreach ($categories as $category) {
@@ -24,23 +25,27 @@ if (!$user_id) {
         }
 
         $stmt = $link->prepare("REPLACE INTO budgets (user_id, category, amount) VALUES (?, ?, ?)");
-        $stmt->bind_param("isd", $user_id, $category, $amount);
-        if (!$stmt->execute()) {
-            echo "Error updating $category budget: " . $stmt->error;
-            $error = true;
+        if ($stmt) {
+            $stmt->bind_param("isd", $user_id, $category, $amount);
+            if (!$stmt->execute()) {
+                echo "Error updating $category budget: " . $stmt->error;
+                $error = true;
+            }
             $stmt->close();
+        } else {
+            echo "Failed to prepare statement";
+            $error = true;
             break;
         }
-        $stmt->close();
     }
 
     if (!$error) {
-        $link->commit(); // Commit the transaction
+        $link->commit();
         header("Location: ../budget.php");
+        exit;
     } else {
-        $link->rollback(); // Rollback if any errors
+        $link->rollback();
     }
 
     $link->close();
-    exit;
 }

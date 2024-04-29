@@ -4,22 +4,25 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-
 if (isset($_GET['category']) && !empty($_SESSION['user_id'])) {
     $category = $_GET['category'];
-    $user_id = $_SESSION['user_id'];  // Make sure user_id is securely retrieved
+    $user_id = $_SESSION['user_id'];
 
     $query = "SELECT amount FROM budgets WHERE user_id = ? AND category = ?";
     $stmt = $link->prepare($query);
-    $stmt->bind_param("is", $user_id, $category);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $data = $result->fetch_assoc();
+    if ($stmt) {
+        $stmt->bind_param("is", $user_id, $category);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_assoc();
 
-    $stmt->close();
-    $link->close();
+        $stmt->close();
+        $link->close();
 
-    echo json_encode($data); // Return the amount as a JSON object
+        echo json_encode($data);
+    } else {
+        echo json_encode(['error' => 'Failed to prepare statement']);
+    }
 } else {
-    echo json_encode(['error' => 'Invalid request']); // Error handling for invalid access
+    echo json_encode(['error' => 'Invalid request']);
 }
