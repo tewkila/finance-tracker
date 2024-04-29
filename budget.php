@@ -1,20 +1,19 @@
 <?php
-require_once 'settings/config.php';
 session_start();
+require_once 'settings/config.php';
 
-// Fetch budgets from the database
-$budgets = [];
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $stmt = $link->prepare("SELECT id, category, amount, date FROM budgets WHERE user_id = ? AND date > DATE_SUB(NOW(), INTERVAL 1 MONTH)");
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $budgets[] = $row;
-    }
-    $stmt->close();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
 }
+
+$user_id = $_SESSION['user_id'];
+$stmt = $link->prepare("SELECT id, category, amount, date FROM budgets WHERE user_id = ? AND date > DATE_SUB(NOW(), INTERVAL 1 MONTH)");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$budgets = $result->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
