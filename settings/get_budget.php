@@ -1,6 +1,9 @@
 <?php
 require_once 'settings/config.php';
 session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 
 if (isset($_GET['category']) && !empty($_SESSION['user_id'])) {
     $category = $_GET['category'];
