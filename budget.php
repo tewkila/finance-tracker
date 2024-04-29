@@ -7,8 +7,9 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Fetch budgets from the database
 $user_id = $_SESSION['user_id'];
-$stmt = $link->prepare("SELECT id, category, amount, date FROM budgets WHERE user_id = ? AND date > DATE_SUB(NOW(), INTERVAL 1 MONTH)");
+$stmt = $link->prepare("SELECT id, category, amount, date FROM budgets WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -71,20 +72,7 @@ $stmt->close();
                 <td><?= htmlspecialchars($budget['category']) ?></td>
                 <td><?= htmlspecialchars($budget['amount']) ?></td>
                 <td><?= htmlspecialchars($budget['date']) ?></td>
-                <td>
-                    <!-- Edit Button triggers a modal or form inline for updating -->
-                    <form action="settings/process_budget.php" method="post">
-                        <input type="hidden" name="action" value="edit">
-                        <input type="hidden" name="budget_id[<?= htmlspecialchars($budget['category']) ?>]" value="<?= $budget['id'] ?>">
-                        <button type="button" onclick="editBudget('<?= $budget['id'] ?>', '<?= htmlspecialchars($budget['category']) ?>', '<?= htmlspecialchars($budget['amount']) ?>')">Edit</button>
-                    </form>
-                    <!-- Delete Button -->
-                    <form action="settings/process_budget.php" method="post">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="budget_id" value="<?= $budget['id'] ?>">
-                        <button type="submit" onclick="return confirm('Are you sure you want to delete this budget?');">Delete</button>
-                    </form>
-                </td>
+                <td><!-- Actions --></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
