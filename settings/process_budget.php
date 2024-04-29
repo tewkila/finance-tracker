@@ -4,13 +4,12 @@ require_once '../settings/config.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_SESSION['user_id'] ?? null; // Fallback if not set
-
-    if (!$user_id) {
-        echo "User not logged in.";
-        exit;
-    }
+$user_id = $_SESSION['user_id'] ?? null; // Fallback if not set
+if (!$user_id) {
+    $_SESSION['message'] = "User not logged in.";
+    header("Location: ../login.php");
+    exit;
+}
 
     $categories = ['Groceries', 'Utilities', 'Entertainment'];
     $link->begin_transaction(); // Start a transaction
