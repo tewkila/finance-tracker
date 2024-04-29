@@ -2,11 +2,14 @@
 session_start();
 require_once 'settings/config.php';
 
-// Function to fetch expenses from the database
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
 function fetchExpenses($link) {
     $user_id = $_SESSION['user_id'];
-    $sql = "SELECT * FROM expenses WHERE user_id = ?";
-    $stmt = $link->prepare($sql);
+    $stmt = $link->prepare("SELECT * FROM expenses WHERE user_id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -15,10 +18,8 @@ function fetchExpenses($link) {
     return $expenses;
 }
 
-// Retrieve expenses to display
 $expenses = fetchExpenses($link);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,21 +65,28 @@ $expenses = fetchExpenses($link);
             <th>Action</th>
         </tr>
         </thead>
-        <tbody>
-        <?php foreach ($expenses as $expense) { ?>
+       <?php foreach ($expenses as $expense): ?>
             <tr>
                 <td><?= htmlspecialchars($expense['amount']); ?></td>
                 <td><?= htmlspecialchars($expense['category']); ?></td>
                 <td><?= htmlspecialchars($expense['date']); ?></td>
                 <td>
-                    <button type="submit" onclick="editExpense('<?= $expense['id']; ?>', '<?= $expense['amount']; ?>', '<?= $expense['category']; ?>', '<?= $expense['date']; ?>')">Edit</button>
                     <form action="settings/process_expense.php" method="post">
-                        <input type="hidden" name="delete" value="<?= $expense['id']; ?>">
+                        <input type="hidden" name="action" value="edit">
+                        <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
+                        <input type="number" name="amount" value="<?= $expense['amount']; ?>">
+                        <input type="text" name="category" value="<?= $expense['category']; ?>">
+                        <input type="date" name="date" value="<?= $expense['date']; ?>">
+                        <button type="submit">Save Changes</button>
+                    </form>
+                    <form action="settings/process_expense.php" method="post">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
                         <button type="submit">Delete</button>
                     </form>
                 </td>
             </tr>
-        <?php } ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
