@@ -55,6 +55,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <button type="submit">Set Budget</button>
     </form>
+
     <!-- Table to display budgets -->
     <table>
         <thead>
@@ -72,8 +73,18 @@ if (isset($_SESSION['user_id'])) {
                 <td><?= htmlspecialchars($budget['amount']) ?></td>
                 <td><?= htmlspecialchars($budget['date']) ?></td>
                 <td>
-                    <a href="edit_budget.php?id=<?= $budget['id'] ?>">Edit</a>
-                    <a href="delete_budget.php?id=<?= $budget['id'] ?>" onclick="return confirm('Are you sure?');">Delete</a>
+                    <!-- Edit Button triggers a modal or form inline for updating -->
+                    <form action="settings/process_budget.php" method="post">
+                        <input type="hidden" name="action" value="edit">
+                        <input type="hidden" name="budget_id[<?= htmlspecialchars($budget['category']) ?>]" value="<?= $budget['id'] ?>">
+                        <button type="button" onclick="editBudget('<?= $budget['id'] ?>', '<?= htmlspecialchars($budget['category']) ?>', '<?= htmlspecialchars($budget['amount']) ?>')">Edit</button>
+                    </form>
+                    <!-- Delete Button -->
+                    <form action="settings/process_budget.php" method="post">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="budget_id" value="<?= $budget['id'] ?>">
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this budget?');">Delete</button>
+                    </form>
                 </td>
             </tr>
         <?php endforeach; ?>
