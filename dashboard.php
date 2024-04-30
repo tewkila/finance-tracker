@@ -2,7 +2,14 @@
 session_start();
 require_once 'settings/config.php';
 
-$username = $_SESSION['username'] ?? 'User';
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
+$error_message = $_SESSION['error_message'] ?? '';
+unset($_SESSION['error_message']);
 
 function calculateTotalExpense() {
     global $link; // Ensure your database connection variable is accessible
