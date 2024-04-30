@@ -11,15 +11,18 @@ $user_id = $_SESSION['user_id'];
 
 // Handle form submission for adding or updating income
 if (isset($_POST['submit'])) {
-    // Sanitize and validate input
-    $amount = filter_var($_POST['amount'], FILTER_VALIDATE_FLOAT, ["flags" => FILTER_FLAG_ALLOW_FRACTION]);
-    $source = htmlspecialchars($_POST['source']);
-    $date = $_POST['date'];  // Assuming date is already in a valid format (YYYY-MM-DD)
+    // Explicitly replace commas if locale uses comma as decimal separator
+    $amountInput = str_replace(',', '.', $_POST['amount']);
 
+    // Validate and sanitize amount as a float
+    $amount = filter_var($amountInput, FILTER_VALIDATE_FLOAT, ["flags" => FILTER_FLAG_ALLOW_FRACTION]);
     if ($amount === false) {
-        echo "Invalid amount format.";
+        echo "Invalid amount format. Please enter a valid number (e.g., 10.67).";
         exit;
     }
+
+    $source = htmlspecialchars($_POST['source']);
+    $date = $_POST['date'];  // Assuming date is in valid format (YYYY-MM-DD)
 
     $editKey = $_POST['edit_key'] ?? '';
 
