@@ -81,7 +81,6 @@ if (isset($_POST['edit'])) {
     $stmt->close();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
