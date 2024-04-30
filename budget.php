@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+
 // Fetch budgets from the database
 $stmt = $link->prepare("SELECT id, category, amount, date FROM budgets WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
@@ -66,6 +67,20 @@ $stmt->execute();
 $result = $stmt->get_result();
 $budgets = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
+
+// Determine if we are editing an existing budget
+$editMode = isset($_GET['edit']);
+$editBudgetId = $editMode ? $_GET['edit'] : null;
+$editBudget = null;
+
+if ($editMode) {
+    foreach ($budgets as $budget) {
+        if ($budget['id'] == $editBudgetId) {
+            $editBudget = $budget;
+            break;
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -96,22 +111,22 @@ $stmt->close();
         <div class="form-row">
             <label for="category">Category:</label>
             <select id="category" name="category" required>
-                <option value="Groceries">Groceries</option>
-                <option value="Utilities">Utilities</option>
-                <option value="Entertainment">Entertainment</option>
+                <option value="Groceries" <?= $editBudget && $editBudget['category'] == 'Groceries' ? 'selected' : ''; ?>>Groceries</option>
+                <option value="Utilities" <?= $editBudget && $editBudget['category'] == 'Utilities' ? 'selected' : ''; ?>>Utilities</option>
+                <option value="Entertainment" <?= $editBudget && $editBudget['category'] == 'Entertainment' ? 'selected' : ''; ?>>Entertainment</option>
             </select>
         </div>
         <div class="form-row">
             <label for="amount">Amount:</label>
-            <input type="number" id="amount" name="amount" required min="0" step="0.01">
+            <input type="number" id="amount" name="amount" required min="0" step="0.01" value="<?= $editBudget ? htmlspecialchars($editBudget['amount']) : ''; ?>">
         </div>
         <div class="form-row">
             <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required max="<?= date('Y-m-d'); ?>">
+            <input type="date" id="date" name="date" required max="<?= date('Y-m-d'); ?>" value="<?= $editBudget ? $editBudget['date'] : ''; ?>">
         </div>
-        <input type="hidden" name="action" value="<?= isset($_GET['edit']) ? 'edit' : 'add'; ?>">
-        <input type="hidden" name="budget_id" value="<?= $_GET['edit'] ?? ''; ?>">
-        <button type="submit"><?= isset($_GET['edit']) ? 'Update' : 'Add'; ?></button>
+        <input type="hidden" name="action" value="<?= $editMode ? 'edit' : 'add'; ?>">
+        <input type="hidden" name="budget_id" value="<?= $editBudgetId; ?>">
+        <button type="submit"><?= $editMode ? 'Update' : 'Add'; ?></button>
     </form>
     <table>
         <thead>

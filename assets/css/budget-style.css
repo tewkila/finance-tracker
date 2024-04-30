@@ -102,3 +102,16 @@ button[type="submit"]:hover {
     padding: 20px; /* Add padding */
     border-radius: 5px; /* Add rounded corners */
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
