@@ -110,7 +110,7 @@ if ($editMode) {
     <form action="budget.php" method="post">
         <div class="form-row">
             <label for="category">Category:</label>
-            <select id="category" name="category" required>
+            <select id="category" name="category" required <?= $editMode ? 'disabled' : ''; ?>>
                 <option value="Groceries" <?= $editBudget && $editBudget['category'] == 'Groceries' ? 'selected' : ''; ?>>Groceries</option>
                 <option value="Utilities" <?= $editBudget && $editBudget['category'] == 'Utilities' ? 'selected' : ''; ?>>Utilities</option>
                 <option value="Entertainment" <?= $editBudget && $editBudget['category'] == 'Entertainment' ? 'selected' : ''; ?>>Entertainment</option>
@@ -128,6 +128,7 @@ if ($editMode) {
         <input type="hidden" name="budget_id" value="<?= $editBudgetId; ?>">
         <button type="submit"><?= $editMode ? 'Update' : 'Add'; ?></button>
     </form>
+
     <table>
         <thead>
         <tr>

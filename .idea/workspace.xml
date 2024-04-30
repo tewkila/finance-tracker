@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="fixing budget">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/budget-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/budget-style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/budget.php" beforeDir="false" afterPath="$PROJECT_DIR$/budget.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,15 +75,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
-      <workItem from="1714059927852" duration="41932000" />
-    </task>
-    <task id="LOCAL-00008" summary="trying to fix expenses">
-      <option name="closed" value="true" />
-      <created>1714083647448</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1714083647448</updated>
+      <workItem from="1714059927852" duration="42218000" />
     </task>
     <task id="LOCAL-00009" summary="fixed expenses">
       <option name="closed" value="true" />
@@ -471,7 +461,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714502599578</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="fixing budget">
+      <option name="closed" value="true" />
+      <created>1714503221093</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1714503221094</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
