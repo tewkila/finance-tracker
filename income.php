@@ -1,8 +1,6 @@
-
 <?php
-session_start(); // Start the session
-
-require_once 'settings/config.php'; // Database configuration file
+session_start();
+require_once 'settings/config.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -10,14 +8,19 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$editIncome = ['amount' => '', 'source' => '', 'date' => ''];
-$editKey = '';
 
 // Handle form submission for adding or updating income
 if (isset($_POST['submit'])) {
-    $amount = $_POST['amount'];
-    $source = $_POST['source'];
-    $date = $_POST['date'];
+    // Sanitize and validate input
+    $amount = filter_var($_POST['amount'], FILTER_VALIDATE_FLOAT, ["flags" => FILTER_FLAG_ALLOW_FRACTION]);
+    $source = htmlspecialchars($_POST['source']);
+    $date = $_POST['date'];  // Assuming date is already in a valid format (YYYY-MM-DD)
+
+    if ($amount === false) {
+        echo "Invalid amount format.";
+        exit;
+    }
+
     $editKey = $_POST['edit_key'] ?? '';
 
     if ($editKey) {

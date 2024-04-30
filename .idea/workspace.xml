@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="added SQL connection to income, fixed other bugs">
+    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="Fixing edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/income.php" beforeDir="false" afterPath="$PROJECT_DIR$/income.php" afterDir="false" />
     </list>
@@ -17,6 +17,7 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -75,7 +76,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
-      <workItem from="1714059927852" duration="31103000" />
+      <workItem from="1714059927852" duration="32093000" />
     </task>
     <task id="LOCAL-00001" summary="deleted extras, added SQL">
       <option name="closed" value="true" />
@@ -317,7 +318,55 @@
       <option name="project" value="LOCAL" />
       <updated>1714486669111</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="fixing edit button">
+      <option name="closed" value="true" />
+      <created>1714488764081</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1714488764083</updated>
+    </task>
+    <task id="LOCAL-00032" summary="fixing edit button">
+      <option name="closed" value="true" />
+      <created>1714488829336</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1714488829336</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Merge remote-tracking branch 'origin/main'">
+      <option name="closed" value="true" />
+      <created>1714488883592</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1714488883592</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Merge remote-tracking branch 'origin/main'">
+      <option name="closed" value="true" />
+      <created>1714488935525</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1714488935525</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Merge remote-tracking branch 'origin/main'">
+      <option name="closed" value="true" />
+      <created>1714488954938</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1714488954938</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Fixing edit">
+      <option name="closed" value="true" />
+      <created>1714489080132</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1714489080132</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -343,7 +392,10 @@
     <MESSAGE value="working on expense" />
     <MESSAGE value="working on budget" />
     <MESSAGE value="added SQL connection to income, fixed other bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="added SQL connection to income, fixed other bugs" />
+    <MESSAGE value="fixing edit button" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
+    <MESSAGE value="Fixing edit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing edit" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
