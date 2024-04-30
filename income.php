@@ -9,6 +9,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$editIncome = ['amount' => '', 'source' => '', 'date' => ''];
+$editKey = '';
 
 // Handle form submission for adding or updating income
 if (isset($_POST['submit'])) {
@@ -59,8 +61,25 @@ if ($stmt->execute()) {
     }
 }
 $stmt->close();
-?>
 
+// Check if edit button is clicked and prepare data for editing
+if (isset($_POST['edit'])) {
+    $editKey = $_POST['edit_key'];
+    $stmt = $link->prepare("SELECT amount, source, date FROM incomes WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $editKey, $user_id);
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        if ($result->num_rows === 1) {
+            $editIncome = $result->fetch_assoc();
+        } else {
+            echo "No record found for ID: $editKey";
+        }
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    $stmt->close();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -80,21 +99,20 @@ $stmt->close();
     <a href="budget.php" class="menu-item">Budget</a>
 </div>
 
-<!-- Income Page -->
 <div class="income-page">
     <h2>Income Page</h2>
     <form action="income.php" method="post">
-        <input type="hidden" id="edit_key" name="edit_key" value="<?php if(isset($editKey)) echo $editKey; ?>">
+        <input type="hidden" id="edit_key" name="edit_key" value="<?= $editKey ?>">
         <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" value="<?php if(isset($editAmount)) echo $editAmount; ?>" required>
+        <input type="number" id="amount" name="amount" value="<?= $editIncome['amount'] ?>" required>
 
         <label for="source">Source:</label>
-        <input type="text" id="source" name="source" value="<?php if(isset($editSource)) echo $editSource; ?>" required>
+        <input type="text" id="source" name="source" value="<?= $editIncome['source'] ?>" required>
 
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" value="<?php if(isset($editDate)) echo $editDate; ?>" required>
+        <input type="date" id="date" name="date" value="<?= $editIncome['date'] ?>" required>
 
-        <button type="submit" name="submit"><?php if(isset($editKey)) echo "Update"; else echo "Submit"; ?></button>
+        <button type="submit" name="submit"><?= $editKey ? "Update" : "Submit" ?></button>
     </form>
 
     <table>
