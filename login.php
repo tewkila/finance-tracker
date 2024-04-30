@@ -13,8 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = trim($_POST['password']);
 
     if (!empty($email) && !empty($password)) {
-        // Prepare a select statement
-        $sql = "SELECT id, email, password FROM users WHERE email = ?";
+        // Prepare a select statement to fetch user id, email, password, and username
+        $sql = "SELECT id, email, password, username FROM users WHERE email = ?";
 
         if ($stmt = $link->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if email exists, if yes then verify password
                 if ($stmt->num_rows == 1) {
                     // Bind result variables
-                    $stmt->bind_result($id, $email, $hashed_password);
+                    $stmt->bind_result($id, $email, $hashed_password, $username);
                     if ($stmt->fetch()) {
                         if (password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION['id'] = $id;
                             $_SESSION['user_id'] = $id;
                             $_SESSION['email'] = $email;
+                            $_SESSION['username'] = $username; // Store the username in the session
 
                             // Redirect user to dashboard page
                             header("location: dashboard.php");
@@ -59,8 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $link->close();
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
