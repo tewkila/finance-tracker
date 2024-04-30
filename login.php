@@ -39,10 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION['email'] = $email;
                             $_SESSION['username'] = $username;
 
-                            echo 'Session variables set: <pre>' . print_r($_SESSION, true) . '</pre>';
-                            exit; // Temporarily stop the script to view the session data
-
-
                             // Redirect user to dashboard page
                             header("location: dashboard.php");
                             exit;
