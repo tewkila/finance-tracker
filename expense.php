@@ -90,17 +90,14 @@ if (isset($_GET['edit'])) {
                 <td><?= htmlspecialchars($expense['category']); ?></td>
                 <td><?= htmlspecialchars($expense['date']); ?></td>
                 <td>
-                    <form action="settings/process_expense.php" method="get" style="display: inline;" onsubmit="return editExpense()">
+                    <form action="settings/process_expense.php" method="get" style="display: inline;" onsubmit="return editExpense(<?= $expense['id']; ?>)">
                         <input type="hidden" name="action" value="edit">
                         <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
                         <button type="submit" class="button-link">Edit</button>
                     </form>
 
                     <script>
-                        function editExpense() {
-                            // Get the expense ID
-                            var expenseId = document.querySelector('input[name="expense_id"]').value;
-
+                        function editExpense(expenseId) {
                             // Redirect to the edit page with the expense ID as a query parameter
                             window.location.href = '?edit=' + expenseId;
 
@@ -109,14 +106,13 @@ if (isset($_GET['edit'])) {
                         }
                     </script>
 
-
-                    <!--                    <a href="?edit=--><?php //= $expense['id']; ?><!--" class="button-link">Edit</a>-->
                     <form action="settings/process_expense.php" method="post" style="display: inline;">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
                         <button type="submit" class="button-link">Delete</button>
                     </form>
                 </td>
+
             </tr>
         <?php endforeach; ?>
         </tbody>
