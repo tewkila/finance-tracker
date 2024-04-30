@@ -87,7 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="password" id="password" name="password" required>
 
         <button type="submit">Login</button>
-        <a href="#" class="forgot-password">Forgot Password?</a>
 
         <!-- Error Message -->
         <?php if ($error): ?>
