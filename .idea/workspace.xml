@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="working on expense">
-      <change beforePath="$PROJECT_DIR$/budget.php" beforeDir="false" afterPath="$PROJECT_DIR$/budget.php" afterDir="false" />
+    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="working on budget">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expense.php" beforeDir="false" afterPath="$PROJECT_DIR$/expense.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +75,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
-      <workItem from="1714059927852" duration="25822000" />
+      <workItem from="1714059927852" duration="26614000" />
     </task>
     <task id="LOCAL-00001" summary="deleted extras, added SQL">
       <option name="closed" value="true" />
@@ -276,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714476687331</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="working on budget">
+      <option name="closed" value="true" />
+      <created>1714476749937</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1714476749937</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,9 +308,9 @@
     <MESSAGE value="added sql logic" />
     <MESSAGE value="trying to fix expenses" />
     <MESSAGE value="fixed expenses" />
-    <MESSAGE value="working on budget" />
     <MESSAGE value="working on expense" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on expense" />
+    <MESSAGE value="working on budget" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on budget" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -15,12 +15,22 @@ function fetchExpenses($link, $user_id) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    $expenses = $result->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-    return $expenses;
+    return $result->fetch_all(MYSQLI_ASSOC);
 }
 
 $expenses = fetchExpenses($link, $user_id);
+
+// Check if editing
+$editExpense = null;
+if (isset($_GET['edit'])) {
+    $editId = $_GET['edit'];
+    foreach ($expenses as $expense) {
+        if ($expense['id'] == $editId) {
+            $editExpense = $expense;
+            break;
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,19 +51,19 @@ $expenses = fetchExpenses($link, $user_id);
 <div class="expense-page">
     <h2>Expense Page</h2>
     <form action="settings/process_expense.php" method="post">
-        <input type="hidden" name="action" value="add">
-        <input type="hidden" name="expense_id" id="expense_id">
+        <input type="hidden" name="action" value="<?= $editExpense ? 'edit' : 'add'; ?>">
+        <input type="hidden" name="expense_id" value="<?= $editExpense['id'] ?? ''; ?>">
         <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" min="0" required>
+        <input type="number" id="amount" name="amount" value="<?= $editExpense['amount'] ?? ''; ?>" required>
         <label for="category">Category:</label>
         <select id="category" name="category" required>
-            <option value="Groceries">Groceries</option>
-            <option value="Utilities">Utilities</option>
-            <option value="Entertainment">Entertainment</option>
+            <option value="Groceries" <?= ($editExpense && $editExpense['category'] == 'Groceries') ? 'selected' : ''; ?>>Groceries</option>
+            <option value="Utilities" <?= ($editExpense && $editExpense['category'] == 'Utilities') ? 'selected' : ''; ?>>Utilities</option>
+            <option value="Entertainment" <?= ($editExpense && $editExpense['category'] == 'Entertainment') ? 'selected' : ''; ?>>Entertainment</option>
         </select>
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required>
-        <button type="submit">Submit</button>
+        <input type="date" id="date" name="date" value="<?= $editExpense['date'] ?? ''; ?>" required>
+        <button type="submit"><?= $editExpense ? 'Update' : 'Submit'; ?></button>
     </form>
 
     <table>
@@ -72,11 +82,7 @@ $expenses = fetchExpenses($link, $user_id);
                 <td><?= htmlspecialchars($expense['category']); ?></td>
                 <td><?= htmlspecialchars($expense['date']); ?></td>
                 <td>
-                    <form action="settings/process_expense.php" method="post" style="display: inline;">
-                        <input type="hidden" name="action" value="edit">
-                        <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
-                        <button type="submit">Edit</button>
-                    </form>
+                    <a href="?edit=<?= $expense['id']; ?>">Edit</a>
                     <form action="settings/process_expense.php" method="post" style="display: inline;">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
