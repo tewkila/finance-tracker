@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="Added security measures for income">
+    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="Fixing decimals for income">
       <change beforePath="$PROJECT_DIR$/income.php" beforeDir="false" afterPath="$PROJECT_DIR$/income.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +75,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
-      <workItem from="1714059927852" duration="32332000" />
+      <workItem from="1714059927852" duration="32606000" />
     </task>
     <task id="LOCAL-00001" summary="deleted extras, added SQL">
       <option name="closed" value="true" />
@@ -381,7 +381,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714489822755</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Fixing decimals for income">
+      <option name="closed" value="true" />
+      <created>1714490049510</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1714490049510</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -411,7 +419,8 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
     <MESSAGE value="Fixing edit" />
     <MESSAGE value="Added security measures for income" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added security measures for income" />
+    <MESSAGE value="Fixing decimals for income" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing decimals for income" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
