@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION['id'] = $id;
                             $_SESSION['user_id'] = $id;
                             $_SESSION['email'] = $email;
-                            $_SESSION['username'] = $username; // Store the username in the session
+                            $_SESSION['username'] = $username;
 
                             // Redirect user to dashboard page
                             header("location: dashboard.php");

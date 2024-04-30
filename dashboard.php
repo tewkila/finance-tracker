@@ -2,16 +2,8 @@
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-require_once 'settings/config.php';
 
 require_once 'settings/config.php';
-
-// After verifying login credentials
-$_SESSION['username'] = $usernameFromDatabase;
-$username = $_SESSION['username'] ?? 'User';
 
 function calculateTotalExpense() {
     global $link;
@@ -66,7 +58,7 @@ function calculateBalance() {
     <a href="budget.php" class="menu-item">Budget</a>
 </div>
 <div class="finance-dashboard">
-    <div class="welcome-message">Welcome back, <?= htmlspecialchars($username); ?>!</div>
+    <div class="welcome-message">Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Guest'); ?>!</div>
     <div class="info-container">
         <div class="balance-info">
             <div class="icon"></div>
