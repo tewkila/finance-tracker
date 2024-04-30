@@ -144,7 +144,11 @@ if ($editMode) {
                 <td><?= htmlspecialchars($budget['amount']); ?></td>
                 <td><?= htmlspecialchars($budget['date']); ?></td>
                 <td>
-                    <a href="?edit=<?= $budget['id']; ?>" class="button">Edit</a>
+                    <form action="budget.php" method="get" style="display: inline;">
+                        <input type="hidden" name="edit" value="<?= $budget['id']; ?>">
+                        <button type="submit" class="button-link">Edit</button>
+                    </form>
+
                     <form action="budget.php" method="post" style="display: inline;">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="budget_id" value="<?= $budget['id']; ?>">

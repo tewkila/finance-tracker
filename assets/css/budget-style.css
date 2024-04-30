@@ -68,12 +68,15 @@ label {
     color: #424545; /* Dark gray text color */
 }
 
-input[type="number"] {
-    width: calc(100% - 22px); /* Make input fields full-width minus scrollbar width */
-    padding: 10px; /* Add some padding for better appearance */
-    border-radius: 5px; /* Add rounded corners */
-    border: 1px solid #ccc; /* Add a light gray border */
+input[type="number"], input[type="date"], select {
+    width: 100%; /* Ensure full width for all input types */
+    padding: 10px; /* Standard padding */
+    margin-bottom: 10px; /* Space below each input */
+    border: 1px solid #ccc; /* Consistent border */
+    border-radius: 5px; /* Rounded corners for aesthetics */
+    box-sizing: border-box; /* Include padding and border in the width */
 }
+
 
 button[type="submit"] {
     background-color: #3F748F; /* Dark blue background */
@@ -114,4 +117,5 @@ th, td {
 }
 
 tr:nth-child(even) {background-color: #f2f2f2;}
+
 
