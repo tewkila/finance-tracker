@@ -82,11 +82,11 @@ if (isset($_GET['edit'])) {
                 <td><?= htmlspecialchars($expense['category']); ?></td>
                 <td><?= htmlspecialchars($expense['date']); ?></td>
                 <td>
-                    <a href="?edit=<?= $expense['id']; ?>">Edit</a>
+                    <a href="?edit=<?= $expense['id']; ?>" class="button-link">Edit</a>
                     <form action="settings/process_expense.php" method="post" style="display: inline;">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="button-link">Delete</button>
                     </form>
                 </td>
             </tr>
