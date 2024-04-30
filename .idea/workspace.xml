@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="working on budget">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/budget.php" beforeDir="false" afterPath="$PROJECT_DIR$/budget.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/expense.php" beforeDir="false" afterPath="$PROJECT_DIR$/expense.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/process_expense.php" beforeDir="false" afterPath="$PROJECT_DIR$/settings/process_expense.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +77,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
-      <workItem from="1714059927852" duration="23314000" />
+      <workItem from="1714059927852" duration="25192000" />
     </task>
     <task id="LOCAL-00001" summary="deleted extras, added SQL">
       <option name="closed" value="true" />
@@ -237,7 +239,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714420023640</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="working on budget">
+      <option name="closed" value="true" />
+      <created>1714420816045</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1714420816045</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

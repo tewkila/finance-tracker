@@ -7,9 +7,11 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-function fetchExpenses($link) {
-    $user_id = $_SESSION['user_id'];
-    $stmt = $link->prepare("SELECT * FROM expenses WHERE user_id = ?");
+$user_id = $_SESSION['user_id'];
+
+// Function to fetch expenses from the database
+function fetchExpenses($link, $user_id) {
+    $stmt = $link->prepare("SELECT id, amount, category, date FROM expenses WHERE user_id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -18,20 +20,17 @@ function fetchExpenses($link) {
     return $expenses;
 }
 
-$expenses = fetchExpenses($link);
+$expenses = fetchExpenses($link, $user_id);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/ajax/libs/poppins/1.0.0/css/poppins.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link href="assets/css/expense-style.css" rel="stylesheet">
     <title>Expense</title>
 </head>
 <body>
-<div class="header"></div>
-<div class="user-info"></div>
-<a href="index.php" class="app-title">Finanss</a>
-
 <div class="menu">
     <a href="dashboard.php" class="menu-item">Dashboard</a>
     <a href="income.php" class="menu-item">Income</a>
@@ -42,6 +41,7 @@ $expenses = fetchExpenses($link);
 <div class="expense-page">
     <h2>Expense Page</h2>
     <form action="settings/process_expense.php" method="post">
+        <input type="hidden" name="action" value="add">
         <input type="hidden" name="expense_id" id="expense_id">
         <label for="amount">Amount:</label>
         <input type="number" id="amount" name="amount" min="0" required>
@@ -53,7 +53,7 @@ $expenses = fetchExpenses($link);
         </select>
         <label for="date">Date:</label>
         <input type="date" id="date" name="date" required>
-        <button type="submit" name="submit">Submit</button>
+        <button type="submit">Submit</button>
     </form>
 
     <table>
@@ -65,40 +65,28 @@ $expenses = fetchExpenses($link);
             <th>Action</th>
         </tr>
         </thead>
-       <?php foreach ($expenses as $expense): ?>
+        <tbody>
+        <?php foreach ($expenses as $expense): ?>
             <tr>
                 <td><?= htmlspecialchars($expense['amount']); ?></td>
                 <td><?= htmlspecialchars($expense['category']); ?></td>
                 <td><?= htmlspecialchars($expense['date']); ?></td>
                 <td>
-                    <form action="settings/process_expense.php" method="post">
+                    <form action="settings/process_expense.php" method="post" style="display: inline;">
                         <input type="hidden" name="action" value="edit">
                         <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
-                        <input type="number" name="amount" value="<?= $expense['amount']; ?>">
-                        <input type="text" name="category" value="<?= $expense['category']; ?>">
-                        <input type="date" name="date" value="<?= $expense['date']; ?>">
-                        <button type="submit">Save Changes</button>
+                        <button type="submit">Edit</button>
                     </form>
-                    <form action="settings/process_expense.php" method="post">
+                    <form action="settings/process_expense.php" method="post" style="display: inline;">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
                         <button type="submit">Delete</button>
                     </form>
                 </td>
             </tr>
-            <?php endforeach; ?>
+        <?php endforeach; ?>
         </tbody>
     </table>
 </div>
-
-<script>
-    function editExpense(id, amount, category, date) {
-        document.getElementById('expense_id').value = id;
-        document.getElementById('amount').value = amount;
-        document.getElementById('category').value = category;
-        document.getElementById('date').value = date;
-    }
-</script>
-
 </body>
 </html>
