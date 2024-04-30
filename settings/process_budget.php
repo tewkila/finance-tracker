@@ -28,8 +28,16 @@ switch ($action) {
                 break;
             }
 
-            $stmt = $link->prepare("REPLACE INTO budgets (user_id, category, amount) VALUES (?, ?, ?)");
-            if (!$stmt || !$stmt->bind_param("isd", $user_id, $category, $amount) || !$stmt->execute()) {
+            if ($action == 'edit') {
+                $budget_id = $_POST['budget_id'] ?? null;
+                $stmt = $link->prepare("UPDATE budgets SET amount = ? WHERE id = ? AND user_id = ?");
+                $params = [$amount, $budget_id, $user_id];
+            } else {  // assume 'add'
+                $stmt = $link->prepare("INSERT INTO budgets (user_id, category, amount) VALUES (?, ?, ?)");
+                $params = [$user_id, $category, $amount];
+            }
+
+            if (!$stmt || !$stmt->bind_param("iis", ...$params) || !$stmt->execute()) {
                 $_SESSION['message'] = "Error updating $category budget: " . ($stmt->error ?? 'Prepare failed');
                 $error = true;
                 $stmt->close();

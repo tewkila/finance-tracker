@@ -50,6 +50,7 @@ if (isset($_GET['edit'])) {
 
 <div class="expense-page">
     <h2>Expense Page</h2>
+    <!-- Form to add expense details -->
     <form action="settings/process_expense.php" method="post">
         <input type="hidden" name="action" value="<?= $editExpense ? 'edit' : 'add'; ?>">
         <input type="hidden" name="expense_id" value="<?= $editExpense['id'] ?? ''; ?>">

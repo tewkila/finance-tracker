@@ -1,56 +1,69 @@
 <?php
 session_start(); // Start the session
 
-// Check if income data exists in the session, if not, initialize it
-if (!isset($_SESSION['incomeData'])) {
-    $_SESSION['incomeData'] = [];
+require_once 'settings/config.php'; // Database configuration file
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
 }
 
-// Check if form is submitted
-if(isset($_POST['submit'])){
-    // Retrieve form data
+$user_id = $_SESSION['user_id'];
+
+// Handle form submission for adding or updating income
+if (isset($_POST['submit'])) {
     $amount = $_POST['amount'];
     $source = $_POST['source'];
     $date = $_POST['date'];
+    $editKey = $_POST['edit_key'] ?? '';
 
-    if(isset($_POST['edit_key']) && $_POST['edit_key'] !== '') {
-        // Edit existing entry
-        $editKey = $_POST['edit_key'];
-        $_SESSION['incomeData'][$editKey] = [
-            'amount' => $amount,
-            'source' => $source,
-            'date' => $date
-        ];
+    if ($editKey) {
+        // Update existing income
+        $stmt = $link->prepare("UPDATE incomes SET amount = ?, source = ?, date = ?, updated_at = NOW() WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("dssii", $amount, $source, $date, $editKey, $user_id);
     } else {
-        // Add new income to the income data array in the session
-        $_SESSION['incomeData'][] = [
-            'amount' => $amount,
-            'source' => $source,
-            'date' => $date
-        ];
+        // Insert new income
+        $stmt = $link->prepare("INSERT INTO incomes (user_id, amount, source, date, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())");
+        $stmt->bind_param("idss", $user_id, $amount, $source, $date);
+    }
+
+    if ($stmt->execute()) {
+        header("Location: income.php");
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    $stmt->close();
+}
+
+// Handle delete request
+if (isset($_POST['delete'])) {
+    $deleteKey = $_POST['delete_key'];
+    $stmt = $link->prepare("DELETE FROM incomes WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $deleteKey, $user_id);
+    if ($stmt->execute()) {
+        header("Location: income.php");
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    $stmt->close();
+}
+
+// Fetch existing income entries from the database
+$incomeEntries = [];
+$stmt = $link->prepare("SELECT id, amount, source, date FROM incomes WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+if ($stmt->execute()) {
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $incomeEntries[] = $row;
     }
 }
-
-// Check if delete button is clicked
-if(isset($_POST['delete'])) {
-    $deleteKey = $_POST['delete_key'];
-    unset($_SESSION['incomeData'][$deleteKey]); // Delete the entry from the session array
-    header("Location: income.php"); // Redirect to refresh the page
-}
-
-// Check if edit button is clicked
-if(isset($_POST['edit'])) {
-    $editKey = $_POST['edit_key'];
-    // Populate the form fields with existing data for editing
-    $editIncome = $_SESSION['incomeData'][$editKey];
-    $editAmount = $editIncome['amount'];
-    $editSource = $editIncome['source'];
-    $editDate = $editIncome['date'];
-}
+$stmt->close();
 ?>
 
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
     <link href="assets/css/income-style.css" rel="stylesheet" />
@@ -70,7 +83,6 @@ if(isset($_POST['edit'])) {
 <!-- Income Page -->
 <div class="income-page">
     <h2>Income Page</h2>
-    <!-- Form to add income details -->
     <form action="income.php" method="post">
         <input type="hidden" id="edit_key" name="edit_key" value="<?php if(isset($editKey)) echo $editKey; ?>">
         <label for="amount">Amount:</label>
@@ -85,7 +97,6 @@ if(isset($_POST['edit'])) {
         <button type="submit" name="submit"><?php if(isset($editKey)) echo "Update"; else echo "Submit"; ?></button>
     </form>
 
-    <!-- Table to display existing income entries -->
     <table>
         <thead>
         <tr>
@@ -96,27 +107,23 @@ if(isset($_POST['edit'])) {
         </tr>
         </thead>
         <tbody>
-        <?php
-        // Loop through income data array and display each entry in the table
-        foreach ($_SESSION['incomeData'] as $key => $income) {
-            echo "<tr>";
-            echo "<td>" . $income['amount'] . "</td>";
-            echo "<td>" . $income['source'] . "</td>";
-            echo "<td>" . $income['date'] . "</td>";
-            echo "<td>";
-            // Add edit and delete buttons for each entry
-            echo "<form action='income.php' method='post' style='display: inline;'>";
-            echo "<input type='hidden' name='edit_key' value='$key'>";
-            echo "<button type='submit' name='edit'>Edit</button>";
-            echo "</form>";
-            echo "<form action='income.php' method='post' style='display: inline;'>";
-            echo "<input type='hidden' name='delete_key' value='$key'>";
-            echo "<button type='submit' name='delete'>Delete</button>";
-            echo "</form>";
-            echo "</td>";
-            echo "</tr>";
-        }
-        ?>
+        <?php foreach ($incomeEntries as $income): ?>
+            <tr>
+                <td><?= htmlspecialchars($income['amount']) ?></td>
+                <td><?= htmlspecialchars($income['source']) ?></td>
+                <td><?= htmlspecialchars($income['date']) ?></td>
+                <td>
+                    <form action="income.php" method="post" style="display: inline;">
+                        <input type="hidden" name="edit_key" value="<?= $income['id'] ?>">
+                        <button type="submit" name="edit">Edit</button>
+                    </form>
+                    <form action="income.php" method="post" style="display: inline;">
+                        <input type="hidden" name="delete_key" value="<?= $income['id'] ?>">
+                        <button type="submit" name="delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
         </tbody>
     </table>
 </div>

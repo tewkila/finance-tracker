@@ -7,15 +7,9 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$user_id = $_SESSION['user_id'];
-
 // Fetch budgets from the database
-$link = new mysqli("hostname", "username", "password", "database"); // Ensure database credentials are correct
-if ($link->connect_error) {
-    die("Connection failed: " . $link->connect_error);
-}
-
-$stmt = $link->prepare("SELECT id, category, amount, DATE_FORMAT(date, '%Y-%m-%d') as date FROM budgets WHERE user_id = ?");
+$user_id = $_SESSION['user_id'];
+$stmt = $link->prepare("SELECT id, category, amount, date FROM budgets WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -34,6 +28,7 @@ $stmt->close();
 <div class="user-info"></div>
 <a href="index.php" class="app-title">Finanss</a>
 
+<!-- Menu -->
 <div class="menu">
     <a href="dashboard.php" class="menu-item">Dashboard</a>
     <a href="income.php" class="menu-item">Income</a>
@@ -41,6 +36,7 @@ $stmt->close();
     <a href="budget.php" class="menu-item">Budget</a>
 </div>
 
+<!-- Budget Page -->
 <div class="budget-page">
     <h2>Budget Page</h2>
     <!-- Form to set budget for different categories -->
@@ -60,6 +56,7 @@ $stmt->close();
         <button type="submit">Set Budget</button>
     </form>
 
+    <!-- Table to display budgets -->
     <table>
         <thead>
         <tr>
@@ -76,10 +73,16 @@ $stmt->close();
                 <td><?= htmlspecialchars($budget['amount']) ?></td>
                 <td><?= htmlspecialchars($budget['date']) ?></td>
                 <td>
-                    <a href="?edit=<?= $budget['id']; ?>" class="button-link">Edit</a>
-                    <form action="settings/process_budget.php" method="post" style="display: inline;">
+                    <!-- Edit Button triggers a modal or form inline for updating -->
+                    <form action="settings/process_budget.php" method="post">
+                        <input type="hidden" name="action" value="edit">
+                        <input type="hidden" name="budget_id[<?= htmlspecialchars($budget['category']) ?>]" value="<?= $budget['id'] ?>">
+                        <button type="button" onclick="editBudget('<?= $budget['id'] ?>', '<?= htmlspecialchars($budget['category']) ?>', '<?= htmlspecialchars($budget['amount']) ?>')">Edit</button>
+                    </form>
+                    <!-- Delete Button -->
+                    <form action="settings/process_budget.php" method="post">
                         <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="budget_id" value="<?= $budget['id']; ?>">
+                        <input type="hidden" name="budget_id" value="<?= $budget['id'] ?>">
                         <button type="submit" onclick="return confirm('Are you sure you want to delete this budget?');">Delete</button>
                     </form>
                 </td>
