@@ -11,13 +11,13 @@ $user_id = $_SESSION['user_id'];
 
 // Handle form submission for adding or updating income
 if (isset($_POST['submit'])) {
-    // Explicitly replace commas if locale uses comma as decimal separator
-    $amountInput = str_replace(',', '.', $_POST['amount']);
+    // Explicitly replace commas and trim spaces
+    $amountInput = trim(str_replace(',', '.', $_POST['amount']));
 
     // Validate and sanitize amount as a float
     $amount = filter_var($amountInput, FILTER_VALIDATE_FLOAT, ["flags" => FILTER_FLAG_ALLOW_FRACTION]);
-    if ($amount === false) {
-        echo "Invalid amount format. Please enter a valid number (e.g., 10.67).";
+    if ($amount === false || $amount < 0) {
+        echo "Invalid amount format. Please enter a valid, non-negative number (e.g., 10.67).";
         exit;
     }
 
