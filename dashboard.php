@@ -2,11 +2,15 @@
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'settings/config.php';
 
 require_once 'settings/config.php';
 
+// After verifying login credentials
+$_SESSION['username'] = $usernameFromDatabase;
 $username = $_SESSION['username'] ?? 'User';
 
 function calculateTotalExpense() {
@@ -25,13 +29,14 @@ function calculateTotalIncome() {
     global $link;
     $user_id = $_SESSION['user_id'];
     $today = date('Y-m-d');
-    $stmt = $link->prepare("SELECT SUM(amount) AS total FROM income WHERE user_id = ? AND date >= ?");
+    $stmt = $link->prepare("SELECT SUM(amount) AS total FROM incomes WHERE user_id = ? AND date >= ?");
     $stmt->bind_param("is", $user_id, $today);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
     return $row ? $row['total'] : 0;
 }
+
 
 
 function calculateBalance() {
@@ -67,21 +72,19 @@ function calculateBalance() {
             <div class="icon"></div>
             <span class="info-label">Balance</span>
             <span class="balance-amount"><?= calculateBalance(); ?>$</span>
-            <span class="ellipsis">...</span>
         </div>
         <div class="expense-info">
             <div class="icon"></div>
-            <span class="info-label">Expense</span>
+            <span class="info-label">Expenses</span>
             <span class="expense-amount"><?= calculateTotalExpense(); ?>$</span>
-            <span class="ellipsis">...</span>
         </div>
         <div class="income-info">
             <div class="icon"></div>
             <span class="info-label">Income</span>
             <span class="income-amount"><?= calculateTotalIncome(); ?>$</span>
-            <span class="ellipsis">...</span>
         </div>
     </div>
+
     <span class="recent">Recent</span>
     <table>
         <thead>
