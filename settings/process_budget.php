@@ -10,59 +10,53 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-$link->begin_transaction();
-try {
-    $action = $_POST['action'] ?? null;
-    switch ($action) {
-        case 'add':
-        case 'edit':
-            $budget_id = $_POST['budget_id'] ?? null;
-            $amount = filter_input(INPUT_POST, 'amount', FILTER_VALIDATE_FLOAT);
-            $category = $_POST['category'] ?? '';
-            $date = $_POST['date'] ?? date('Y-m-d');
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'];
+    $budget_id = $_POST['budget_id'] ?? null;
+    $category = $_POST['category'] ?? null;
+    $amount = filter_input(INPUT_POST, 'amount', FILTER_VALIDATE_FLOAT);
+    $date = $_POST['date'];
 
-            if ($amount === false || $amount < 0) {
-                throw new Exception("Invalid amount. Amount must be a non-negative number.");
-            }
-            if (new DateTime($date) > new DateTime()) {
-                throw new Exception("Future dates are not allowed.");
-            }
-
+    if ($amount === false || $amount < 0) {
+        $_SESSION['message'] = "Invalid amount. Please enter a non-negative decimal number.";
+    } elseif (new DateTime($date) > new DateTime()) {
+        $_SESSION['message'] = "Future dates are not allowed.";
+    } else {
+        $link->begin_transaction();
+        try {
             if ($action === 'edit' && $budget_id) {
                 $stmt = $link->prepare("UPDATE budgets SET amount = ?, category = ?, date = ? WHERE id = ? AND user_id = ?");
                 $stmt->bind_param("dssii", $amount, $category, $date, $budget_id, $user_id);
-            } else {
+            } elseif ($action === 'add') {
+                // Check for existing category
+                $checkStmt = $link->prepare("SELECT id FROM budgets WHERE category = ? AND user_id = ?");
+                $checkStmt->bind_param("si", $category, $user_id);
+                $checkStmt->execute();
+                if ($checkStmt->get_result()->fetch_assoc()) {
+                    throw new Exception("A budget for this category already exists. Please edit the existing budget.");
+                }
+                $checkStmt->close();
+
                 $stmt = $link->prepare("INSERT INTO budgets (user_id, category, amount, date) VALUES (?, ?, ?, ?)");
                 $stmt->bind_param("isds", $user_id, $category, $amount, $date);
+            } elseif ($action === 'delete' && $budget_id) {
+                $stmt = $link->prepare("DELETE FROM budgets WHERE id = ? AND user_id = ?");
+                $stmt->bind_param("ii", $budget_id, $user_id);
+            } else {
+                throw new Exception("Invalid action or missing budget ID.");
             }
 
             if (!$stmt->execute()) {
-                throw new Exception("Failed to process budget operation.");
+                throw new Exception("Database error: " . $stmt->error);
             }
             $stmt->close();
-            break;
-
-        case 'delete':
-            $budget_id = $_POST['budget_id'];
-            if (!$budget_id) {
-                throw new Exception("No budget specified for deletion.");
-            }
-            $stmt = $link->prepare("DELETE FROM budgets WHERE id = ? AND user_id = ?");
-            $stmt->bind_param("ii", $budget_id, $user_id);
-            if (!$stmt->execute()) {
-                throw new Exception("Failed to delete budget.");
-            }
-            $stmt->close();
-            break;
-
-        default:
-            throw new Exception("Invalid action.");
+            $link->commit();
+            $_SESSION['message'] = "Budget operation successful.";
+        } catch (Exception $e) {
+            $link->rollback();
+            $_SESSION['message'] = $e->getMessage();
+        }
     }
-    $link->commit();
-    $_SESSION['message'] = "Budget updated successfully.";
-} catch (Exception $e) {
-    $link->rollback();
-    $_SESSION['message'] = "Error: " . $e->getMessage();
+    header("Location: ../budget.php");
+    exit;
 }
-header("Location: ../budget.php");
-exit;
