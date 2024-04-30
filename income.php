@@ -11,10 +11,11 @@ $user_id = $_SESSION['user_id'];
 
 // Handle form submission for adding or updating income
 if (isset($_POST['submit'])) {
+    // Explicitly replace commas, trim spaces, and validate the input
     $amountInput = trim(str_replace(',', '.', $_POST['amount']));
     $amount = filter_var($amountInput, FILTER_VALIDATE_FLOAT, ["flags" => FILTER_FLAG_ALLOW_FRACTION]);
 
-    // Check for a valid, non-negative number
+    // Check for a valid, non-negative float
     if ($amount === false || $amount < 0) {
         echo "Invalid amount format. Please enter a valid, non-negative number (e.g., 10.67).";
         exit;
@@ -23,7 +24,7 @@ if (isset($_POST['submit'])) {
     $source = htmlspecialchars($_POST['source']);
     $date = $_POST['date'];
 
-    // Check for future date
+    // Prevent future dates
     $currentDate = date('Y-m-d');
     if ($date > $currentDate) {
         echo "Future dates are not allowed.";
@@ -33,9 +34,11 @@ if (isset($_POST['submit'])) {
     $editKey = $_POST['edit_key'] ?? '';
 
     if ($editKey) {
+        // Update existing income
         $stmt = $link->prepare("UPDATE incomes SET amount = ?, source = ?, date = ?, updated_at = NOW() WHERE id = ? AND user_id = ?");
         $stmt->bind_param("dssii", $amount, $source, $date, $editKey, $user_id);
     } else {
+        // Insert new income
         $stmt = $link->prepare("INSERT INTO incomes (user_id, amount, source, date, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())");
         $stmt->bind_param("idss", $user_id, $amount, $source, $date);
     }
@@ -114,7 +117,8 @@ if (isset($_POST['edit'])) {
     <form action="income.php" method="post">
         <input type="hidden" id="edit_key" name="edit_key" value="<?= $editKey ?>">
         <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" value="<?= $editIncome['amount'] ?>" required>
+        <input type="number" id="amount" name="amount" value="<?= isset($editIncome['amount']) ? $editIncome['amount'] : '' ?>" required min="0" step="0.01">
+
 
         <label for="source">Source:</label>
         <input type="text" id="source" name="source" value="<?= $editIncome['source'] ?>" required>
