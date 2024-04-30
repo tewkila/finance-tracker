@@ -8,37 +8,34 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$error_message = '';  // Initialize an empty error message string
 
 // Handle form submission for adding or updating income
 if (isset($_POST['submit'])) {
-    // Explicitly replace commas, trim spaces, and validate the input
     $amountInput = trim(str_replace(',', '.', $_POST['amount']));
     $amount = filter_var($amountInput, FILTER_VALIDATE_FLOAT, ["flags" => FILTER_FLAG_ALLOW_FRACTION]);
 
-    // Check for a valid, non-negative float
     if ($amount === false || $amount < 0) {
-        echo "Invalid amount format. Please enter a valid, non-negative number (e.g., 10.67).";
+        $_SESSION['error_message'] = "Invalid amount format. Please enter a valid, non-negative number (e.g., 10.67).";
+        header("Location: income.php");
         exit;
     }
 
     $source = htmlspecialchars($_POST['source']);
     $date = $_POST['date'];
 
-    // Prevent future dates
-    $currentDate = date('Y-m-d');
-    if ($date > $currentDate) {
-        echo "Future dates are not allowed.";
+    if ($date > date('Y-m-d')) {
+        $_SESSION['error_message'] = "Future dates are not allowed.";
+        header("Location: income.php");
         exit;
     }
 
     $editKey = $_POST['edit_key'] ?? '';
 
     if ($editKey) {
-        // Update existing income
         $stmt = $link->prepare("UPDATE incomes SET amount = ?, source = ?, date = ?, updated_at = NOW() WHERE id = ? AND user_id = ?");
         $stmt->bind_param("dssii", $amount, $source, $date, $editKey, $user_id);
     } else {
-        // Insert new income
         $stmt = $link->prepare("INSERT INTO incomes (user_id, amount, source, date, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())");
         $stmt->bind_param("idss", $user_id, $amount, $source, $date);
     }
@@ -46,7 +43,8 @@ if (isset($_POST['submit'])) {
     if ($stmt->execute()) {
         header("Location: income.php");
     } else {
-        echo "Error: " . $stmt->error;
+        $_SESSION['error_message'] = "Error: " . $stmt->error;
+        header("Location: income.php");
     }
     $stmt->close();
 }
@@ -59,7 +57,8 @@ if (isset($_POST['delete'])) {
     if ($stmt->execute()) {
         header("Location: income.php");
     } else {
-        echo "Error: " . $stmt->error;
+        $_SESSION['error_message'] = "Error: " . $stmt->error;
+        header("Location: income.php");
     }
     $stmt->close();
 }
@@ -86,14 +85,22 @@ if (isset($_POST['edit'])) {
         if ($result->num_rows === 1) {
             $editIncome = $result->fetch_assoc();
         } else {
-            echo "No record found for ID: $editKey";
+            $_SESSION['error_message'] = "No record found for ID: $editKey";
+            header("Location: income.php");
         }
     } else {
-        echo "Error: " . $stmt->error;
+        $_SESSION['error_message'] = "Error: " . $stmt->error;
+        header("Location: income.php");
     }
     $stmt->close();
 }
+
+if (isset($_SESSION['error_message'])) {
+    $error_message = $_SESSION['error_message'];
+    unset($_SESSION['error_message']); // Clear the message after it's displayed
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,6 +121,9 @@ if (isset($_POST['edit'])) {
 
 <div class="income-page">
     <h2>Income Page</h2>
+    <?php if (!empty($error_message)): ?>
+        <div class="alert alert-danger"><?= $error_message ?></div>
+    <?php endif; ?>
     <form action="income.php" method="post">
         <input type="hidden" id="edit_key" name="edit_key" value="<?= $editKey ?>">
         <label for="amount">Amount:</label>
