@@ -1,37 +1,38 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
 require_once 'settings/config.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
+require_once 'settings/config.php';
 
-$user_id = $_SESSION['user_id'];
-$error_message = $_SESSION['error_message'] ?? '';
-unset($_SESSION['error_message']);
+$username = $_SESSION['username'] ?? 'User';
 
 function calculateTotalExpense() {
-    global $link; // Ensure your database connection variable is accessible
-    $user_id = $_SESSION['user_id']; // User ID from session
-    $stmt = $link->prepare("SELECT SUM(amount) FROM expenses WHERE user_id = ? AND date >= ?");
+    global $link;
+    $user_id = $_SESSION['user_id'];
     $today = date('Y-m-d');
+    $stmt = $link->prepare("SELECT SUM(amount) AS total FROM expenses WHERE user_id = ? AND date >= ?");
     $stmt->bind_param("is", $user_id, $today);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_column() ?: 0;
+    $row = $result->fetch_assoc();
+    return $row ? $row['total'] : 0;
 }
 
 function calculateTotalIncome() {
     global $link;
     $user_id = $_SESSION['user_id'];
-    $stmt = $link->prepare("SELECT SUM(amount) FROM income WHERE user_id = ? AND date >= ?");
     $today = date('Y-m-d');
+    $stmt = $link->prepare("SELECT SUM(amount) AS total FROM income WHERE user_id = ? AND date >= ?");
     $stmt->bind_param("is", $user_id, $today);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_column() ?: 0;
+    $row = $result->fetch_assoc();
+    return $row ? $row['total'] : 0;
 }
+
 
 function calculateBalance() {
     $totalIncome = calculateTotalIncome();
