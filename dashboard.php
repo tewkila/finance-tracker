@@ -1,4 +1,5 @@
 <?php
+echo 'Session variables available: <pre>' . print_r($_SESSION, true) . '</pre>';
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
