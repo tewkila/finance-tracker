@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="fixed login to make dashboard work">
+    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="fixed dashboard user">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
@@ -77,23 +77,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
-      <workItem from="1714059927852" duration="45430000" />
-    </task>
-    <task id="LOCAL-00016" summary="working on budget">
-      <option name="closed" value="true" />
-      <created>1714417794345</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1714417794351</updated>
-    </task>
-    <task id="LOCAL-00017" summary="working on budget">
-      <option name="closed" value="true" />
-      <created>1714418122057</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1714418122057</updated>
+      <workItem from="1714059927852" duration="45706000" />
     </task>
     <task id="LOCAL-00018" summary="working on budget">
       <option name="closed" value="true" />
@@ -471,7 +455,23 @@
       <option name="project" value="LOCAL" />
       <updated>1714506374229</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="testing dashboard">
+      <option name="closed" value="true" />
+      <created>1714506783029</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1714506783033</updated>
+    </task>
+    <task id="LOCAL-00066" summary="fixed dashboard user">
+      <option name="closed" value="true" />
+      <created>1714506981923</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1714506981927</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,7 +509,9 @@
     <MESSAGE value="fixing budget" />
     <MESSAGE value="adding php to dashboard" />
     <MESSAGE value="fixed login to make dashboard work" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed login to make dashboard work" />
+    <MESSAGE value="testing dashboard" />
+    <MESSAGE value="fixed dashboard user" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed dashboard user" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
