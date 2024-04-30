@@ -11,27 +11,31 @@ $user_id = $_SESSION['user_id'];
 
 // Handle form submission for adding or updating income
 if (isset($_POST['submit'])) {
-    // Explicitly replace commas and trim spaces
     $amountInput = trim(str_replace(',', '.', $_POST['amount']));
-
-    // Validate and sanitize amount as a float
     $amount = filter_var($amountInput, FILTER_VALIDATE_FLOAT, ["flags" => FILTER_FLAG_ALLOW_FRACTION]);
+
+    // Check for a valid, non-negative number
     if ($amount === false || $amount < 0) {
         echo "Invalid amount format. Please enter a valid, non-negative number (e.g., 10.67).";
         exit;
     }
 
     $source = htmlspecialchars($_POST['source']);
-    $date = $_POST['date'];  // Assuming date is in valid format (YYYY-MM-DD)
+    $date = $_POST['date'];
+
+    // Check for future date
+    $currentDate = date('Y-m-d');
+    if ($date > $currentDate) {
+        echo "Future dates are not allowed.";
+        exit;
+    }
 
     $editKey = $_POST['edit_key'] ?? '';
 
     if ($editKey) {
-        // Update existing income
         $stmt = $link->prepare("UPDATE incomes SET amount = ?, source = ?, date = ?, updated_at = NOW() WHERE id = ? AND user_id = ?");
         $stmt->bind_param("dssii", $amount, $source, $date, $editKey, $user_id);
     } else {
-        // Insert new income
         $stmt = $link->prepare("INSERT INTO incomes (user_id, amount, source, date, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())");
         $stmt->bind_param("idss", $user_id, $amount, $source, $date);
     }
