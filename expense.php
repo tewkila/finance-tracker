@@ -43,6 +43,9 @@ if (isset($_GET['edit'])) {
     <title>Expense</title>
 </head>
 <body>
+<div class="header">
+    <a href="index.php" class="app-title">Finanss</a>
+</div>
 <div class="menu">
     <a href="dashboard.php" class="menu-item">Dashboard</a>
     <a href="income.php" class="menu-item">Income</a>
