@@ -4,7 +4,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once 'settings/config.php';  // Include the database connection
 
-
 $errors = [];  // Initialize an array to hold error messages
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
@@ -21,6 +20,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
     if ($email === false) {
         $errors['email'] = "Please include an '@' in the email address.";
     }
+
+    // Check for duplicate email
+    $stmt = $link->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $errors['email'] = "A user with that email already exists.";
+    }
+    $stmt->close();
 
     // Check if there are any errors
     if (count($errors) === 0) {
@@ -44,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
         // Close statement
         $stmt->close();
     }
+    $link->close();
 }
 ?>
 
@@ -76,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
         <?php if (!empty($errors['email'])) echo "<p class='error'>{$errors['email']}</p>"; ?>
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required 
+        <input type="password" id="password" name="password" required
                pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="Password must be at least 8 characters long and include at least one uppercase letter and one number.">
         <!-- Display error if password validation fails -->
         <?php if (!empty($errors['password'])) echo "<p class='error'>{$errors['password']}</p>"; ?>
@@ -86,10 +96,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
 </div>
 
 <style>
-.error {
-    color: red;
-    font-size: 0.8em;
-}
+    .error {
+        color: red;
+        font-size: 0.8em;
+    }
+    .success {
+        color: green;
+        font-size: 0.8em;
+    }
 </style>
 
 </body>

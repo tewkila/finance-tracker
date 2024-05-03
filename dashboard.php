@@ -5,6 +5,12 @@ ini_set('display_errors', 1);
 
 require_once 'settings/config.php';
 
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
 function calculateTotalExpense() {
     global $link;
     $user_id = $_SESSION['user_id'];
