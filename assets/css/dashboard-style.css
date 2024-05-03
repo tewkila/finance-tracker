@@ -124,3 +124,18 @@ body {
 .recent-transactions th {
     background-color: #f4f4f4;
 }
+
+.logout-button {
+    background-color: #3F748F;
+    color: #EBEBEB;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.logout-button:hover {
+    background-color: #2E596F;
+}

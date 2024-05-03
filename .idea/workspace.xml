@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="fixing edit button">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.php" beforeDir="false" />
+    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="added logout option">
+      <change beforePath="$PROJECT_DIR$/assets/css/dashboard-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/dashboard-style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,15 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
       <workItem from="1714059927852" duration="46477000" />
-      <workItem from="1714568150156" duration="7341000" />
-    </task>
-    <task id="LOCAL-00032" summary="fixing edit button">
-      <option name="closed" value="true" />
-      <created>1714488829336</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1714488829336</updated>
+      <workItem from="1714568150156" duration="7578000" />
     </task>
     <task id="LOCAL-00033" summary="Merge remote-tracking branch 'origin/main'">
       <option name="closed" value="true" />
@@ -472,7 +462,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714732977674</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="added logout option">
+      <option name="closed" value="true" />
+      <created>1714733450569</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1714733450570</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,7 +488,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="trying to fix expenses" />
     <MESSAGE value="fixed expenses" />
     <MESSAGE value="working on expense" />
     <MESSAGE value="working on budget" />
@@ -515,7 +512,8 @@
     <MESSAGE value="working on expense-budget connections" />
     <MESSAGE value="fixing alert and edit button" />
     <MESSAGE value="fixing edit button" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing edit button" />
+    <MESSAGE value="added logout option" />
+    <option name="LAST_COMMIT_MESSAGE" value="added logout option" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
