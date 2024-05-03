@@ -73,7 +73,7 @@ function calculateBalance() {
 
     <span class="recent">Recent</span>
     <div class="scrollable-table">
-        <table>
+        <table class="styled-table">
             <thead>
             <tr>
                 <th>Type</th>
@@ -83,6 +83,7 @@ function calculateBalance() {
             </thead>
             <tbody>
             <?php
+            $user_id = $_SESSION['user_id'];
             $stmt = $link->prepare("SELECT 'Income' AS type, amount, date FROM incomes WHERE user_id = ? UNION SELECT 'Expense' AS type, amount, date FROM expenses WHERE user_id = ? ORDER BY date DESC LIMIT 10");
             $stmt->bind_param("ii", $user_id, $user_id);
             $stmt->execute();
@@ -101,3 +102,4 @@ function calculateBalance() {
 </div>
 </body>
 </html>
+
