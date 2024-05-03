@@ -84,6 +84,7 @@ function calculateBalance() {
             </thead>
             <tbody>
             <?php
+            $user_id = $_SESSION['user_id'];
             $stmt = $link->prepare("SELECT 'Income' AS type, amount, date FROM incomes WHERE user_id = ? UNION SELECT 'Expense' AS type, amount, date FROM expenses WHERE user_id = ? ORDER BY date DESC LIMIT 10");
             $stmt->bind_param("ii", $user_id, $user_id);
             $stmt->execute();
