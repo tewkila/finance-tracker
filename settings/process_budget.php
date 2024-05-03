@@ -13,7 +13,6 @@ $user_id = $_SESSION['user_id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'];
     $budget_id = $_POST['budget_id'] ?? null;
-    $category = $_POST['category'] ?? null;
     $amount = filter_input(INPUT_POST, 'amount', FILTER_VALIDATE_FLOAT);
     $date = $_POST['date'];
 
@@ -25,10 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $link->begin_transaction();
         try {
             if ($action === 'edit' && $budget_id) {
-                $stmt = $link->prepare("UPDATE budgets SET amount = ?, category = ?, date = ? WHERE id = ? AND user_id = ?");
-                $stmt->bind_param("dssii", $amount, $category, $date, $budget_id, $user_id);
+                // Don't update the category in edit mode
+                $stmt = $link->prepare("UPDATE budgets SET amount = ?, date = ? WHERE id = ? AND user_id = ?");
+                $stmt->bind_param("dsii", $amount, $date, $budget_id, $user_id);
             } elseif ($action === 'add') {
                 // Check for existing category
+                $category = $_POST['category'];
                 $checkStmt = $link->prepare("SELECT id FROM budgets WHERE category = ? AND user_id = ?");
                 $checkStmt->bind_param("si", $category, $user_id);
                 $checkStmt->execute();

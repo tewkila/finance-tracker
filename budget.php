@@ -110,22 +110,26 @@ if ($editMode) {
     <form action="budget.php" method="post">
         <div class="form-row">
             <label for="category">Category:</label>
-            <select id="category" name="category" required <?= $editMode ? 'disabled' : ''; ?>>
-                <option value="Groceries" <?= $editBudget && $editBudget['category'] == 'Groceries' ? 'selected' : ''; ?>>Groceries</option>
-                <option value="Utilities" <?= $editBudget && $editBudget['category'] == 'Utilities' ? 'selected' : ''; ?>>Utilities</option>
-                <option value="Entertainment" <?= $editBudget && $editBudget['category'] == 'Entertainment' ? 'selected' : ''; ?>>Entertainment</option>
-            </select>
+            <?php if ($editMode): ?>
+                <input type="text" id="category" name="category" value="<?= htmlspecialchars($editBudget['category']); ?>" readonly>
+            <?php else: ?>
+                <select id="category" name="category" required>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Entertainment">Entertainment</option>
+                </select>
+            <?php endif; ?>
         </div>
         <div class="form-row">
             <label for="amount">Amount:</label>
-            <input type="number" id="amount" name="amount" required min="0" step="0.01" value="<?= $editBudget ? htmlspecialchars($editBudget['amount']) : ''; ?>">
+            <input type="number" id="amount" name="amount" required min="0" step="0.01" value="<?= htmlspecialchars($editBudget['amount'] ?? ''); ?>">
         </div>
         <div class="form-row">
             <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required max="<?= date('Y-m-d'); ?>" value="<?= $editBudget ? $editBudget['date'] : ''; ?>">
+            <input type="date" id="date" name="date" required value="<?= htmlspecialchars($editBudget['date'] ?? date('Y-m-d')); ?>">
         </div>
         <input type="hidden" name="action" value="<?= $editMode ? 'edit' : 'add'; ?>">
-        <input type="hidden" name="budget_id" value="<?= $editBudgetId; ?>">
+        <input type="hidden" name="budget_id" value="<?= $editBudgetId ?? ''; ?>">
         <button type="submit"><?= $editMode ? 'Update' : 'Add'; ?></button>
     </form>
 
