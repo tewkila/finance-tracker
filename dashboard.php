@@ -6,6 +6,12 @@ ini_set('display_errors', 1);
 
 require_once 'settings/config.php';
 
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
 // Function to calculate total expense for the current month
 function calculateTotalExpenseThisMonth() {
     global $link;
@@ -65,6 +71,7 @@ function fetchRecentTransactions($limit = 10) {
 <body>
 <div class="header">
     <a href="index.php" class="app-title">Finanss</a>
+    <a href="logout.php" class="logout-button">Logout</a>
 </div>
 <div class="menu">
     <a href="dashboard.php" class="menu-item">Dashboard</a>
