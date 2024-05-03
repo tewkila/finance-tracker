@@ -21,6 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
         $errors['email'] = "Please include an '@' in the email address.";
     }
 
+    // Check for duplicate username
+    $stmt = $link->prepare("SELECT id FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $errors['username'] = "A user with that username already exists.";
+    }
+    $stmt->close();
+
     // Check for duplicate email
     $stmt = $link->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
@@ -97,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
 
 <style>
     .error {
-        color: red;
+        color: #ff3838;
         font-size: 0.8em;
     }
     .success {
