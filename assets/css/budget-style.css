@@ -118,4 +118,22 @@ th, td {
 
 tr:nth-child(even) {background-color: #f2f2f2;}
 
+/* General styling for input fields */
+.input-field {
+    width: calc(100% - 22px); /* Adjusted width */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px; /* Adjust for spacing between fields */
+}
+
+/* Specific styling for readonly category field */
+.readonly-field {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5; /* Slightly different background to indicate readonly */
+    color: #555; /* Text color for readonly field */
+}
 

@@ -111,7 +111,7 @@ if ($editMode) {
         <div class="form-row">
             <label for="category">Category:</label>
             <?php if ($editMode): ?>
-                <input type="text" id="category" name="category" value="<?= htmlspecialchars($editBudget['category']); ?>" readonly>
+                <input type="text" id="category" name="category"  class="readonly-field" value="<?= htmlspecialchars($editBudget['category']); ?>" readonly>
             <?php else: ?>
                 <select id="category" name="category" required>
                     <option value="Groceries">Groceries</option>
@@ -122,7 +122,7 @@ if ($editMode) {
         </div>
         <div class="form-row">
             <label for="amount">Amount:</label>
-            <input type="number" id="amount" name="amount" required min="0" step="0.01" value="<?= htmlspecialchars($editBudget['amount'] ?? ''); ?>">
+            <input type="number" id="amount" name="amount" class="input-field" required min="0" step="0.01" value="<?= htmlspecialchars($editBudget['amount'] ?? ''); ?>">
         </div>
         <div class="form-row">
             <label for="date">Date:</label>
