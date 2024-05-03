@@ -71,9 +71,9 @@ function calculateBalance() {
         </div>
     </div>
 
-    <span class="recent">Recent Transactions</span>
-    <div class="styled-table">
-        <table>
+    <span class="recent">Recent</span>
+    <div class="scrollable-table">
+        <table class="styled-table">
             <thead>
             <tr>
                 <th>Type</th>
@@ -102,3 +102,4 @@ function calculateBalance() {
 </div>
 </body>
 </html>
+
