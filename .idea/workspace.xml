@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="added logout option">
+    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="working on logout button">
       <change beforePath="$PROJECT_DIR$/assets/css/dashboard-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/dashboard-style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,15 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
       <workItem from="1714059927852" duration="46477000" />
-      <workItem from="1714568150156" duration="7578000" />
-    </task>
-    <task id="LOCAL-00033" summary="Merge remote-tracking branch 'origin/main'">
-      <option name="closed" value="true" />
-      <created>1714488883592</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1714488883592</updated>
+      <workItem from="1714568150156" duration="7756000" />
     </task>
     <task id="LOCAL-00034" summary="Merge remote-tracking branch 'origin/main'">
       <option name="closed" value="true" />
@@ -470,7 +462,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714733450570</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="working on logout button">
+      <option name="closed" value="true" />
+      <created>1714733678650</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1714733678652</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -488,7 +488,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed expenses" />
     <MESSAGE value="working on expense" />
     <MESSAGE value="working on budget" />
     <MESSAGE value="added SQL connection to income, fixed other bugs" />
@@ -513,7 +512,8 @@
     <MESSAGE value="fixing alert and edit button" />
     <MESSAGE value="fixing edit button" />
     <MESSAGE value="added logout option" />
-    <option name="LAST_COMMIT_MESSAGE" value="added logout option" />
+    <MESSAGE value="working on logout button" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on logout button" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
