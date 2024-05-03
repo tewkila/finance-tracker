@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="adding logic to dashboard">
+    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="minor details for dashboard">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expense.php" beforeDir="false" afterPath="$PROJECT_DIR$/expense.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/process_expense.php" beforeDir="false" afterPath="$PROJECT_DIR$/settings/process_expense.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,39 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
       <workItem from="1714059927852" duration="46477000" />
-      <workItem from="1714568150156" duration="4417000" />
-    </task>
-    <task id="LOCAL-00024" summary="working on expense">
-      <option name="closed" value="true" />
-      <created>1714476549015</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1714476549016</updated>
-    </task>
-    <task id="LOCAL-00025" summary="working on expense">
-      <option name="closed" value="true" />
-      <created>1714476687330</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1714476687331</updated>
-    </task>
-    <task id="LOCAL-00026" summary="working on budget">
-      <option name="closed" value="true" />
-      <created>1714476749937</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1714476749937</updated>
-    </task>
-    <task id="LOCAL-00027" summary="working on budget">
-      <option name="closed" value="true" />
-      <created>1714477827096</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1714477827096</updated>
+      <workItem from="1714568150156" duration="5502000" />
     </task>
     <task id="LOCAL-00028" summary="working on budget">
       <option name="closed" value="true" />
@@ -470,7 +441,39 @@
       <option name="project" value="LOCAL" />
       <updated>1714730175875</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="minor details for dashboard">
+      <option name="closed" value="true" />
+      <created>1714730508421</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1714730508422</updated>
+    </task>
+    <task id="LOCAL-00074" summary="minor details for dashboard">
+      <option name="closed" value="true" />
+      <created>1714730528525</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1714730528526</updated>
+    </task>
+    <task id="LOCAL-00075" summary="minor details for dashboard">
+      <option name="closed" value="true" />
+      <created>1714730544156</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1714730544156</updated>
+    </task>
+    <task id="LOCAL-00076" summary="minor details for dashboard">
+      <option name="closed" value="true" />
+      <created>1714730572516</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1714730572521</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -488,7 +491,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="deleted extras, added SQL" />
     <MESSAGE value="added error handling" />
     <MESSAGE value="added sql logic" />
     <MESSAGE value="trying to fix expenses" />
@@ -513,7 +515,8 @@
     <MESSAGE value="fixing categories for budget" />
     <MESSAGE value="fixing css for categories" />
     <MESSAGE value="adding logic to dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding logic to dashboard" />
+    <MESSAGE value="minor details for dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor details for dashboard" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

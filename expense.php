@@ -20,6 +20,18 @@ function fetchExpenses($link, $user_id) {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
+// Function to fetch the budget for a specific category
+function getCategoryBudget($category) {
+    global $link;
+    $user_id = $_SESSION['user_id'];
+    $stmt = $link->prepare("SELECT amount FROM budgets WHERE user_id = ? AND category = ?");
+    $stmt->bind_param("is", $user_id, $category);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    return $row ? $row['amount'] : null; // Return budget or null if no budget found
+}
+
 $expenses = fetchExpenses($link, $user_id);
 
 // Check if editing
@@ -41,6 +53,24 @@ if (isset($_GET['edit'])) {
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link href="assets/css/expense-style.css" rel="stylesheet">
     <title>Expense</title>
+    <script>
+        function validateExpenseForm() {
+            var category = document.getElementById('category').value;
+            var amount = parseFloat(document.getElementById('amount').value);
+
+            // Get the budget from the PHP function
+            var budget = parseFloat(<?= json_encode(getCategoryBudget('Groceries') ?? 0); ?>);
+
+            if (amount > budget) {
+                if (confirm("This expense exceeds the budget. Would you like to change your budget instead?")) {
+                    window.location.href = "budget.php";
+                    return false; // Prevent form submission
+                }
+            }
+
+            return true; // Allow form submission
+        }
+    </script>
 </head>
 <body>
 <div class="header">
@@ -58,7 +88,7 @@ if (isset($_GET['edit'])) {
     <?php if (!empty($error_message)): ?>
         <div class="alert alert-danger"><?= $error_message ?></div>
     <?php endif; ?>
-    <form action="settings/process_expense.php" method="post">
+    <form action="settings/process_expense.php" method="post" onsubmit="return validateExpenseForm();">
         <input type="hidden" name="action" value="<?= $editExpense ? 'edit' : 'add'; ?>">
         <input type="hidden" name="expense_id" value="<?= $editExpense['id'] ?? ''; ?>">
         <label for="amount">Amount:</label>
@@ -96,23 +126,12 @@ if (isset($_GET['edit'])) {
                         <button type="submit" class="button-link">Edit</button>
                     </form>
 
-                    <script>
-                        function editExpense(expenseId) {
-                            // Redirect to the edit page with the expense ID as a query parameter
-                            window.location.href = '?edit=' + expenseId;
-
-                            // Prevent the form from submitting normally
-                            return false;
-                        }
-                    </script>
-
                     <form action="settings/process_expense.php" method="post" style="display: inline;">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
                         <button type="submit" class="button-link">Delete</button>
                     </form>
                 </td>
-
             </tr>
         <?php endforeach; ?>
         </tbody>
