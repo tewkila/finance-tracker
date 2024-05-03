@@ -29,20 +29,6 @@ try {
     }
 
     if ($action === 'add') {
-        // Check if budget is available
-        $stmt = $link->prepare("SELECT amount FROM budgets WHERE user_id = ? AND category = ?");
-        $stmt->bind_param("is", $user_id, $category);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $budgetRow = $result->fetch_assoc();
-        $stmt->close();
-
-        $availableBudget = $budgetRow ? $budgetRow['amount'] : 0;
-
-        if ($amount > $availableBudget) {
-            throw new Exception("This expense exceeds the budget for the selected category.");
-        }
-
         $stmt = $link->prepare("INSERT INTO expenses (user_id, amount, category, date) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("idss", $user_id, $amount, $category, $date);
 
@@ -52,10 +38,24 @@ try {
         $stmtBudget->execute();
         $stmtBudget->close();
     } elseif ($action === 'edit' && $expense_id) {
+        // Adjust budget based on the difference between old and new expense amounts
+        $stmtOld = $link->prepare("SELECT amount, category FROM expenses WHERE id = ? AND user_id = ?");
+        $stmtOld->bind_param("ii", $expense_id, $user_id);
+        $stmtOld->execute();
+        $resultOld = $stmtOld->get_result();
+        $oldExpense = $resultOld->fetch_assoc();
+        $stmtOld->close();
+
+        $amountDifference = $oldExpense ? $amount - $oldExpense['amount'] : $amount;
+
         $stmt = $link->prepare("UPDATE expenses SET amount = ?, category = ?, date = ? WHERE id = ?");
         $stmt->bind_param("dssi", $amount, $category, $date, $expense_id);
-    } else if ($action === 'delete' && $expense_id) {
-        // Find out the category and amount of the expense before deletion
+
+        $stmtBudget = $link->prepare("UPDATE budgets SET amount = amount - ? WHERE user_id = ? AND category = ?");
+        $stmtBudget->bind_param("dis", $amountDifference, $user_id, $category);
+        $stmtBudget->execute();
+        $stmtBudget->close();
+    } elseif ($action === 'delete' && $expense_id) {
         $stmt = $link->prepare("SELECT amount, category FROM expenses WHERE id = ? AND user_id = ?");
         $stmt->bind_param("ii", $expense_id, $user_id);
         $stmt->execute();

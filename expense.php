@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$error_message = $_SESSION['error_message'] ?? ''; // Capture and clear any error message
+$error_message = $_SESSION['error_message'] ?? '';
 unset($_SESSION['error_message']);
 
 // Function to fetch expenses from the database
@@ -29,7 +29,7 @@ function getCategoryBudget($category) {
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
-    return $row ? $row['amount'] : null; // Return budget or null if no budget found
+    return $row ? $row['amount'] : 0;
 }
 
 $expenses = fetchExpenses($link, $user_id);
@@ -55,7 +55,8 @@ if (isset($_GET['edit'])) {
     <title>Expense</title>
     <script>
         function validateExpenseForm() {
-            var category = document.getElementById('category').value;
+            var categoryElement = document.getElementById('category');
+            var category = categoryElement.options[categoryElement.selectedIndex].value;
             var amount = parseFloat(document.getElementById('amount').value);
 
             // Get the budget from the PHP function
@@ -65,6 +66,8 @@ if (isset($_GET['edit'])) {
                 if (confirm("This expense exceeds the budget. Would you like to change your budget instead?")) {
                     window.location.href = "budget.php";
                     return false; // Prevent form submission
+                } else {
+                    return true; // Allow form submission
                 }
             }
 
@@ -120,12 +123,7 @@ if (isset($_GET['edit'])) {
                 <td><?= htmlspecialchars($expense['category']); ?></td>
                 <td><?= htmlspecialchars($expense['date']); ?></td>
                 <td>
-                    <form action="settings/process_expense.php" method="get" style="display: inline;" onsubmit="return editExpense(<?= $expense['id']; ?>)">
-                        <input type="hidden" name="action" value="edit">
-                        <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
-                        <button type="submit" class="button-link">Edit</button>
-                    </form>
-
+                    <a href="expense.php?edit=<?= $expense['id']; ?>" class="button-link">Edit</a>
                     <form action="settings/process_expense.php" method="post" style="display: inline;">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">
