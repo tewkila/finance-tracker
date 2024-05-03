@@ -104,3 +104,23 @@ body {
     font-size: 24px; /* Increase font size for emphasis */
     margin-top: 20px;
 }
+
+.recent-transactions {
+    max-height: 300px; /* Adjust as needed */
+    overflow-y: auto;
+}
+
+.recent-transactions table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recent-transactions th, .recent-transactions td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.recent-transactions th {
+    background-color: #f4f4f4;
+}
