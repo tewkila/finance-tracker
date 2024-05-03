@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="working on logout button">
+    <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="testing out dashboard">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/dashboard-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/dashboard-style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,23 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
       <workItem from="1714059927852" duration="46477000" />
-      <workItem from="1714568150156" duration="8416000" />
-    </task>
-    <task id="LOCAL-00035" summary="Merge remote-tracking branch 'origin/main'">
-      <option name="closed" value="true" />
-      <created>1714488954938</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1714488954938</updated>
-    </task>
-    <task id="LOCAL-00036" summary="Fixing edit">
-      <option name="closed" value="true" />
-      <created>1714489080132</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1714489080132</updated>
+      <workItem from="1714568150156" duration="8859000" />
     </task>
     <task id="LOCAL-00037" summary="Added security measures for income">
       <option name="closed" value="true" />
@@ -471,7 +456,23 @@
       <option name="project" value="LOCAL" />
       <updated>1714733845871</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="testing out dashboard">
+      <option name="closed" value="true" />
+      <created>1714734520116</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1714734520117</updated>
+    </task>
+    <task id="LOCAL-00085" summary="testing out dashboard">
+      <option name="closed" value="true" />
+      <created>1714734733781</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1714734733783</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -489,7 +490,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="working on expense" />
     <MESSAGE value="working on budget" />
     <MESSAGE value="added SQL connection to income, fixed other bugs" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
@@ -514,7 +514,8 @@
     <MESSAGE value="fixing edit button" />
     <MESSAGE value="added logout option" />
     <MESSAGE value="working on logout button" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on logout button" />
+    <MESSAGE value="testing out dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing out dashboard" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

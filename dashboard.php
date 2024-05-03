@@ -33,7 +33,6 @@ function calculateBalance() {
     return $totalIncome - $totalExpense;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,7 +73,7 @@ function calculateBalance() {
 
     <span class="recent">Recent</span>
     <div class="scrollable-table">
-        <table>
+        <table class="styled-table">
             <thead>
             <tr>
                 <th>Type</th>
@@ -103,3 +102,4 @@ function calculateBalance() {
 </div>
 </body>
 </html>
+
