@@ -123,7 +123,10 @@ if (isset($_GET['edit'])) {
                 <td><?= htmlspecialchars($expense['category']); ?></td>
                 <td><?= htmlspecialchars($expense['date']); ?></td>
                 <td>
-                    <a href="expense.php?edit=<?= $expense['id']; ?>" class="button-link">Edit</a>
+                    <form action="expense.php" method="get" style="display: inline;">
+                        <input type="hidden" name="edit" value="<?= $expense['id']; ?>">
+                        <button type="submit" class="button-link">Edit</button>
+                    </form>
                     <form action="settings/process_expense.php" method="post" style="display: inline;">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="expense_id" value="<?= $expense['id']; ?>">

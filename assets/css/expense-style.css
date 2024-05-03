@@ -127,6 +127,7 @@ table td button:hover {
     color: #EBEBEB;
     display: inline-block;
     cursor: pointer;
+    border: none;
 }
 
 .button-link:hover {
