@@ -73,7 +73,7 @@ function fetchRecentTransactions($limit = 10) {
     <a href="budget.php" class="menu-item">Budget</a>
 </div>
 <div class="finance-dashboard">
-    <div class="welcome-message">Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Guest'); ?>!</div>
+    <div class="welcome-message">Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Guest'); ?>! This are the stats of current month.</div>
     <div class="info-container">
         <div class="balance-info">
             <div class="icon"></div>
