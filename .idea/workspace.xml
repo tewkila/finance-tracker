@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac715810-e0ce-4390-9936-95fc91666ca0" name="Changes" comment="fixing dashboard table">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/dashboard-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/dashboard-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,15 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1714059926781</updated>
       <workItem from="1714059927852" duration="46477000" />
-      <workItem from="1714568150156" duration="8936000" />
-    </task>
-    <task id="LOCAL-00038" summary="Added security measures for income">
-      <option name="closed" value="true" />
-      <created>1714489822754</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1714489822755</updated>
+      <workItem from="1714568150156" duration="9561000" />
     </task>
     <task id="LOCAL-00039" summary="Fixing decimals for income">
       <option name="closed" value="true" />
@@ -470,7 +464,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714734972222</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="fixing dashboard table">
+      <option name="closed" value="true" />
+      <created>1714735064898</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1714735064898</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

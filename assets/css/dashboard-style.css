@@ -142,15 +142,15 @@ body {
     background-color: #2E596F;
 }
 
-/* Dashboard Styles */
+/* Table Styling */
 .styled-table {
     width: 100%;
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 18px;
-    text-align: left;
-    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
     overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .styled-table thead tr {
@@ -165,7 +165,7 @@ body {
 }
 
 .styled-table tbody tr {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #dddddd;
 }
 
 .styled-table tbody tr:nth-of-type(even) {
@@ -173,10 +173,5 @@ body {
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #676d70;
-}
-
-.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #676d70;
+    border-bottom: 2px solid #3F748F;
 }
